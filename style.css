@@ -19,7 +19,9 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* ou a altura do seu header + um respiro */
 }
+
 
 /* Header Style checkpoint */
 .header-minimal {
@@ -42,6 +44,11 @@ html {
   max-width: 1200px;               /* Largura máxima */
   margin: 0 auto;                  /* Centraliza horizontalmente */
 }
+
+.main-content {
+  padding-top: 100px; /* Compensa a altura do header fixo */
+}
+
 
 
 .logo-container {
@@ -185,10 +192,30 @@ html {
   flex: 1;
   min-width: 280px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #ddd;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #f2f2f2;
+
+  background: linear-gradient(145deg, #1a1a1a, #121212); /* fundo dark com leve degradê */
+  padding: 2rem;
+  border-radius: 16px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6); /* efeito de profundidade */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+.about-content:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(255, 165, 0, 0.15); /* luz suave ao passar o mouse */
+}
+
+
 
 /* === CHECKPOINT: DIVISOR DECORATIVO ENTRE PARÁGRAFOS === */
 .divider {
@@ -207,9 +234,9 @@ html {
   margin-bottom: 1rem;
 }
 
-/* === CHECKPOINT: LISTA DE ESPECIALIDADES === */
+/* === CHECKPOINT: LISTA DE ESPECIALIDADES (MODERNA) === */
 .skills-container {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .skills-list {
@@ -217,24 +244,31 @@ html {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
+  gap: 0.75rem 1rem;
 }
 
 .skills-list li {
-  background-color: #1a1a1a;
+  background: linear-gradient(145deg, #1f1f1f, #292929);
   padding: 0.6rem 1.2rem;
-  border-radius: 20px;
+  border-radius: 999px;
   font-size: 0.95rem;
+  font-weight: 600;
   color: #ffa500;
   border: 1px solid #ff5c57;
+  box-shadow: inset 0 0 4px rgba(255, 165, 0, 0.3);
   transition: all 0.3s ease;
+  cursor: default;
+  user-select: none;
 }
 
 .skills-list li:hover {
-  background-color: #ff5c57;
+  background: linear-gradient(to right, #ff5c57, #ffa500);
   color: #fff;
-  border-color: #ffa500;
+  border-color: transparent;
+  box-shadow: 0 0 8px rgba(255, 92, 87, 0.4);
+  transform: scale(1.05);
 }
+
 
 /* === CHECKPOINT: RESPONSIVO (TELAS PEQUENAS) === */
 @media (max-width: 768px) {
