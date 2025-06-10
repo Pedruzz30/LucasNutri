@@ -17,6 +17,10 @@
 }
 
 
+html {
+  scroll-behavior: smooth;
+}
+
 /* Header Style checkpoint */
 .header-minimal {
   position: fixed;                  /* Fixa o header no topo da página */
@@ -682,8 +686,11 @@
   color: #ccc;
   padding: 40px 20px 20px;
   font-family: 'Montserrat', sans-serif;
-  border-top: 2px solid #FFA500;
+  border-top: 2px solid transparent;
+  border-image: linear-gradient(to left, #f7ba2b 0%, #ea5358 100%);
+  border-image-slice: 1;
 }
+
 
 /* === Layout flexível e direto ao ponto === */
 .footer-content {
@@ -858,4 +865,17 @@
   .whatsapp-float span {
     display: inline;
   }
+}
+
+
+/* Scroll animation */
+.animation-on-Scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animation-on-scroll.visible {
+  opacity:1;
+  transform: translateY(0);
 }
