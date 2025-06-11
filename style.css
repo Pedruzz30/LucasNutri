@@ -217,14 +217,6 @@ html {
 
 
 
-/* === CHECKPOINT: DIVISOR DECORATIVO ENTRE PARÁGRAFOS === */
-.divider {
-  height: 2px;
-  width: 60px;
-  background: linear-gradient(to right, #FFA500, #FF2E2E);
-  margin: 2rem 0;
-}
-
 /* === CHECKPOINT: TÍTULOS DENTRO DO CONTEÚDO (ex: CONSULTORIA) === */
 .about-content h3 {
   font-size: 1.3rem;
@@ -369,113 +361,7 @@ html {
   padding: 80px 20px;
 }
 
-/* === CHECKPOINT: Container principal da seção === */
-.contact-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
-  align-items: flex-start;
-}
 
-/* === CHECKPOINT: Bloco com info de contato === */
-.contact-info {
-  flex: 1;
-  min-width: 280px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.contact-info p {
-  margin: 0;
-  font-size: 1rem;
-  color: #ccc;
-}
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: color 0.3s ease;
-}
-
-.contact-link:hover {
-  color: #FFA500;
-}
-
-.contact-link i {
-  font-size: 1.2rem;
-}
-
-/* === CHECKPOINT: Links sociais === */
-.social-links-minimal {
-  display: flex;
-  gap: 1.2rem;
-  margin-top: 1rem;
-}
-
-.social-links-minimal a {
-  color: #fff;
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
-}
-
-.social-links-minimal a:hover {
-  color: #FFA500;
-}
-
-/* === CHECKPOINT: Bloco do formulário/ação === */
-.contact-form {
-  flex: 1;
-  min-width: 280px;
-  background: #1c1c1c;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255, 165, 0, 0.1);
-}
-
-.contact-form h3 {
-  margin-top: 0;
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.3rem;
-  color: #FFA500;
-  margin-bottom: 1rem;
-}
-
-.contact-form p {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  color: #ccc;
-  margin-bottom: 1.5rem;
-}
-
-.button-like {
-  display: inline-block;
-  background: linear-gradient(to right, #FFA500, #FF2E2E);
-  color: #fff;
-  font-weight: bold;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.button-like:hover {
-  background: linear-gradient(to right, #FF2E2E, #FFA500);
-}
-
-/* === CHECKPOINT: Responsivo === */
-@media (max-width: 768px) {
-  .contact-container {
-    flex-direction: column;
-    gap: 2.5rem;
-  }
-}
 
 
 /* === CHECKPOINT: Layout da Seção Animada === */
@@ -580,138 +466,6 @@ html {
 }
 
 
-/* === CHECKPOINT: Seção principal de contato === */
-.contact-section {
-  padding: 80px 20px;
-  background-color: #111;
-  color: #fff;
-  text-align: center;
-}
-
-/* === CHECKPOINT: Título e subtítulo === */
-.contact-section .section-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.2rem;
-  color: #FFA500;
-  margin-bottom: 1rem;
-}
-
-.contact-section .section-subtitle {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
-  color: #ccc;
-  margin-bottom: 3rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* === CHECKPOINT: Grid dos blocos de contato === */
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-/* === CHECKPOINT: Caixas de contato (email, whatsapp, etc) === */
-.contact-box {
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 0 20px rgba(255, 165, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.contact-box:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 25px rgba(255, 165, 0, 0.25);
-}
-
-.contact-box h3 {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: #FFA500;
-}
-
-.contact-box p,
-.contact-box a {
-  font-family: 'Montserrat', sans-serif;
-  color: #ccc;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  text-decoration: none;
-}
-
-.contact-box a:hover {
-  color: #FFA500;
-}
-
-/* === CHECKPOINT: Links sociais (ícones animados) === */
-.social-links-minimal {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin-top: 1rem;
-}
-
-.social-links-minimal a {
-  font-size: 1.5rem;
-  color: #fff;
-  transition: transform 0.3s, color 0.3s;
-}
-
-.social-links-minimal a:hover {
-  transform: scale(1.2);
-  color: #FFA500;
-}
-
-/* === CHECKPOINT: CTA (call to action) final === */
-.contact-cta {
-  padding-top: 2rem;
-}
-
-.contact-cta h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: #ff5c57;
-}
-
-.contact-cta p {
-  font-size: 1rem;
-  color: #ccc;
-  margin-bottom: 1.5rem;
-}
-
-/* Botão estilo global se quiser reaproveitar */
-.button.primary {
-  background: linear-gradient(to right, #FFA500, #FF2E2E);
-  color: #fff;
-  padding: 0.8rem 1.8rem;
-  border-radius: 8px;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background 0.3s ease;
-}
-
-.button.primary:hover {
-  background: linear-gradient(to right, #FF2E2E, #FFA500);
-}
-
-/* === Responsivo extra se quiser centralizar tudo no mobile === */
-@media (max-width: 768px) {
-  .contact-box h3 {
-    font-size: 1.1rem;
-  }
-  .button.primary {
-    width: 100%;
-    display: inline-block;
-  }
-}
 
 
 /* === FOOTER COMPACTO E MODERNO === */
@@ -756,8 +510,7 @@ html {
 }
 
 /* === Links organizados com menor espaço === */
-.footer-links h4,
-.footer-contact h4 {
+.footer-links h4 {
   font-size: 1rem;
   margin-bottom: 0.8rem;
   color: #fff;
@@ -776,17 +529,7 @@ html {
   color: #FFA500;
 }
 
-/* === Informações de contato enxutas === */
-.footer-contact p {
-  margin: 0.3rem 0;
-  font-size: 0.9rem;
-  color: #bbb;
-}
 
-.footer-contact i {
-  margin-right: 0.4rem;
-  color: #FFA500;
-}
 
 /* === Créditos finais reduzidos === */
 .footer-copyright {
