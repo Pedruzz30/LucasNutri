@@ -7,7 +7,7 @@
   --light: #FFFFFF;         /* Branco puro (fundos) */
   --gray: #333333;          /* Cinza escuro (textos secundários) */
   --light-gray: #F5F5F5;    /* Cinza muito claro (fundos secundários) */
-  --transition: all 0.3s ease;
+  --transition: all 0.5s ease;
 }
 
 * {
@@ -100,6 +100,16 @@ h3 {
   margin: 0;
 }
 
+/* Botão para abrir o menu em telas pequenas */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 .nav-minimal ul {
   display: flex;                   /* Links lado a lado */
   list-style: none;                /* Remove os pontinhos da lista */
@@ -116,7 +126,7 @@ h3 {
   color: #fff;
   text-decoration: none;
   position: relative;
-  transition: 0.3s ease;          /* Suaviza os efeitos de hover */
+  transition: 0.5s ease;          /* Suaviza os efeitos de hover */
 }
 
 
@@ -128,7 +138,7 @@ h3 {
   width: 0;                       /* Começa invisível */
   height: 2px;
   background: linear-gradient(to right, #FFA500, #FF2E2E); /* Gradiente igual ao logo */
-  transition: width 0.3s ease;
+  transition: width 0.5s ease;
 }
 
 
@@ -154,6 +164,20 @@ h3 {
     flex-direction: column;       /* Links um abaixo do outro */
     gap: 1rem;
     margin-top: 1rem;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .nav-minimal {
+    display: none;
+    width: 100%;
+  }
+
+  .nav-minimal.open {
+    display: block;
   }
 
   .logo {
@@ -183,7 +207,7 @@ h3 {
   color: #eaeaea;
   line-height: 1.8;
   font-size: 1.05rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
   animation: fadeInUp 0.8s ease-out both;
 }
 
@@ -265,7 +289,7 @@ h3 {
   border-radius: 16px;
 
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6); /* efeito de profundidade */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 
   display: flex;
   flex-direction: column;
@@ -326,7 +350,7 @@ h3 {
   color: #ffa500;
   border: 1px solid #ff5c57;
   box-shadow: inset 0 0 4px rgba(255, 165, 0, 0.3);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   cursor: default;
   user-select: none;
   animation: fadeInSkill 0.8s ease-in-out forwards;
@@ -405,7 +429,7 @@ h3 {
   width: 300px;
   max-width: 100%;
   box-shadow: 0 0 20px rgba(255, 165, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
   text-align: center;
 }
 
@@ -475,7 +499,7 @@ h3 {
   background: var(--background);
   position: relative;
   z-index: 1;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 .card::after {
@@ -512,7 +536,7 @@ h3 {
 .card i {
   font-size: 2.5rem;
   color: #fff;
-  transition: color 0.3s;
+  transition: color 0.5s;
 }
 
 .card .title {
@@ -583,7 +607,7 @@ h3 {
   position: relative;
   overflow: hidden;
   color: #fff;
-  transition: transform 0.3s, box-shadow;
+  transition: transform 0.5s, box-shadow;
    text-decoration: none;
 }
 
@@ -595,7 +619,7 @@ h3 {
   border-radius: 50px;
   transform: scale(0);
   z-index: -1;
-  transition: transform 0.3s;
+  transition: transform 0.5s;
 }
 
 
@@ -619,7 +643,7 @@ h3 {
 }
 
 .socialContainer:hover .socialSvg {
-  animation: slide-in-top 0.3s both;
+  animation: slide-in-top 0.3 both;
 }
 
 @keyframes slide-in-top {
@@ -682,7 +706,7 @@ h3 {
   color: #bbb;
   font-size: 0.9rem;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.4s ease;
 }
 
 .footer-links a:hover {
@@ -716,7 +740,7 @@ h3 {
 
 
 /* Scroll animation */
-.animation-on-Scroll {
+.animation-on-scroll {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;

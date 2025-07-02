@@ -36,6 +36,29 @@ navLinks.forEach(link => {
   });
 });
 
+const animatedElements = document.querySelectorAll('.animation-on-scroll');
+
+const animationObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      animationObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.2 });
+
+animatedElements.forEach(el => animationObserver.observe(el));
+
+// Alterna a navegação em telas pequenas
+const menuToggle = document.querySelector('.menu-toggle');
+const navMenu = document.querySelector('.nav-minimal');
+if (menuToggle && navMenu) {
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+  });
+}
+
 // Atualiza o ano do rodapé automaticamente
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+
