@@ -16,12 +16,10 @@
   box-sizing: border-box;
 }
 
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px; /* ou a altura do seu header + um respiro */
 }
-
 
 body {
   background-color: #0f0f0f;
@@ -29,13 +27,11 @@ body {
   font-family: 'Montserrat', sans-serif;
 }
 
-
 h1,
 h2,
 h3 {
   font-family: 'Poppins', sans-serif;
 }
-
 
 /* Header Style checkpoint */
 .header-minimal {
@@ -48,7 +44,6 @@ h3 {
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);  /* Sombra suave pra dar destaque */
   padding: 0.8rem 0;                /* Espaçamento interno (vertical) */
 }
-
 
 .header-minimal .container {
   display: flex;                    /* Alinha logo e menu lado a lado */
@@ -63,8 +58,6 @@ h3 {
   padding-top: 100px; /* Compensa a altura do header fixo */
 }
 
-
-
 .logo-container {
   display: flex;                   /* Logo e texto lado a lado */
   align-items: center;
@@ -78,7 +71,6 @@ h3 {
   object-fit: contain;
 }
 
-
 .logo {
   font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
@@ -89,7 +81,6 @@ h3 {
   color: transparent;                                         /* Cor transparente pra mostrar o gradiente */
   margin: 0;
 }
-
 
 .tagline {
   font-family: 'Montserrat', sans-serif;
@@ -118,7 +109,6 @@ h3 {
   padding: 0;
 }
 
-
 .nav-minimal .nav-link {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -128,7 +118,6 @@ h3 {
   position: relative;
   transition: 0.5s ease;          /* Suaviza os efeitos de hover */
 }
-
 
 .nav-minimal .nav-link::after {
   content: '';                    /* Linha decorativa no hover */
@@ -141,7 +130,6 @@ h3 {
   transition: width 0.5s ease;
 }
 
-
 .nav-minimal .nav-link:hover::after,
 .nav-minimal .nav-link.active::after {
   width: 100%;                    /* Anima a linha aparecer inteira */
@@ -151,7 +139,6 @@ h3 {
 .nav-minimal .nav-link.active {
   color: #FFA500;                 /* Muda a cor do texto ao passar o mouse */
 }
-
 
 @media (max-width: 768px) {
   .header-minimal .container {
@@ -189,14 +176,12 @@ h3 {
   }
 }
 
-
 /* === CHECKPOINT: SEÇÃO SOBRE / INFORMAÇÕES DO NUTRICIONISTA === */
 .section-minimal {
   padding: 80px 20px; /* Espaçamento interno da seção */
   background-color: #0f0f0f; /* Fundo escuro pro site ficar moderno */
   color: #fff; /* Texto branco pra contraste */
 }
-
 
 .consultoria-info {
   background: linear-gradient(145deg, #1a1a1a, #121212);
@@ -244,8 +229,6 @@ h3 {
     transform: translateY(0);
   }
 }
-
-
 
 /* === CHECKPOINT: TÍTULO DA SEÇÃO (ex: SOBRE) === */
 .section-title {
@@ -303,8 +286,6 @@ h3 {
   box-shadow: 0 12px 30px rgba(255, 165, 0, 0.15); /* luz suave ao passar o mouse */
 }
 
-
-
 /* === CHECKPOINT: TÍTULOS DENTRO DO CONTEÚDO (ex: CONSULTORIA) === */
 .about-content h3 {
   font-family: 'poppins' sans-serif;
@@ -329,7 +310,6 @@ h3 {
   letter-spacing: 1px;
   animation: fadeInUp 0.6s ease-out both;
 }
-
 
 .skills-list {
   list-style: none;
@@ -375,7 +355,6 @@ h3 {
   }
 }
 
-
 /* === CHECKPOINT: RESPONSIVO (TELAS PEQUENAS) === */
 @media (max-width: 768px) {
   .about-grid {
@@ -393,7 +372,6 @@ h3 {
     text-align: left;
   }
 }
-
 
 /* === CHECKPOINT: Seção Serviços === */
 .section-minimal {
@@ -467,16 +445,12 @@ h3 {
   }
 }
 
-
 /* === CHECKPOINT: Seção Contato === */
 #contato.section-minimal {
   background-color: #111;
   color: #fff;
   padding: 80px 20px;
 }
-
-
-
 
 /* === CHECKPOINT: Layout da Seção Animada === */
 .what-i-do-animated {
@@ -579,7 +553,6 @@ h3 {
   }
 }
 
-
 /* === Contact Icons === */
 .contact-card {
   width: fit-content;
@@ -611,7 +584,6 @@ h3 {
    text-decoration: none;
 }
 
-
 .socialContainer::before {
   content: '';
   position: absolute;
@@ -621,7 +593,6 @@ h3 {
   z-index: -1;
   transition: transform 0.5s;
 }
-
 
 .containerOne:hover::before {background-color: #0072b1; transform: scale(1);}
 .containerTwo:hover::before {background-color: #d62976; transform: scale(1);}
@@ -651,7 +622,6 @@ h3 {
   100% { transform: translateY(0); opacity: 1; }
 }
 
-
 /* === FOOTER COMPACTO E MODERNO === */
 .footer-minimal {
   background-color: #111;
@@ -662,7 +632,6 @@ h3 {
   border-image: linear-gradient(to left, #f7ba2b 0%, #ea5358 100%);
   border-image-slice: 1;
 }
-
 
 /* === Layout flexível e direto ao ponto === */
 .footer-content {
@@ -713,8 +682,6 @@ h3 {
   color: #FFA500;
 }
 
-
-
 /* === Créditos finais reduzidos === */
 .footer-copyright {
   text-align: center;
@@ -736,8 +703,6 @@ h3 {
     justify-content: center;
   }
 }
-
-
 
 /* Scroll animation */
 .animation-on-scroll {
