@@ -35,23 +35,23 @@ h3 {
 
 /* Header Style checkpoint */
 .header-minimal {
-  position: fixed;                  /* Fixa o header no topo da página */
+  position: fixed; /* Fixa o header no topo da página */
   top: 0;
-  width: 100%;                      /* Ocupa toda a largura */
-  background-color: #0f0f0f;        /* Fundo preto escuro (dark) */
-  color: white;                     /* Cor do texto padrão */
-  z-index: 1000;                    /* Fica por cima de tudo */
+  width: 100%; /* Ocupa toda a largura */
+  background-color: #0f0f0f; /* Fundo preto escuro (dark) */
+  color: white; /* Cor do texto padrão */
+  z-index: 1000; /* Fica por cima de tudo */
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);  /* Sombra suave pra dar destaque */
-  padding: 0.8rem 0;                /* Espaçamento interno (vertical) */
+  padding: 0.8rem 0; /* Espaçamento interno (vertical) */
 }
 
 .header-minimal .container {
-  display: flex;                    /* Alinha logo e menu lado a lado */
+  display: flex; /* Alinha logo e menu lado a lado */
   justify-content: space-between;  /* Um em cada lado */
-  align-items: center;             /* Centraliza verticalmente */
-  padding: 0 2rem;                 /* Espaçamento nas laterais */
-  max-width: 1200px;               /* Largura máxima */
-  margin: 0 auto;                  /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 0 2rem; /* Espaçamento nas laterais */
+  max-width: 1200px; /* Largura máxima */
+  margin: 0 auto; /* Centraliza horizontalmente */
 }
 
 .main-content {
@@ -59,9 +59,9 @@ h3 {
 }
 
 .logo-container {
-  display: flex;                   /* Logo e texto lado a lado */
+  display: flex; /* Logo e texto lado a lado */
   align-items: center;
-  gap: 1rem;                       /* Espaço entre a imagem e o texto */
+  gap: 1rem; /* Espaço entre a imagem e o texto */
 }
 
 
@@ -76,9 +76,9 @@ h3 {
   font-size: 1.6rem;
   font-weight: 700;
   background: linear-gradient(to right, #FFA500, #FF2E2E); /* Gradiente no texto */
-  -webkit-background-clip: text;                               /* Clip do texto pro gradiente */
+  -webkit-background-clip: text; /* Clip do texto pro gradiente */
   background-clip: text;
-  color: transparent;                                         /* Cor transparente pra mostrar o gradiente */
+  color: transparent; /* Cor transparente pra mostrar o gradiente */
   margin: 0;
 }
 
@@ -102,9 +102,9 @@ h3 {
 }
 
 .nav-minimal ul {
-  display: flex;                   /* Links lado a lado */
-  list-style: none;                /* Remove os pontinhos da lista */
-  gap: 2rem;                       /* Espaçamento entre os links */
+  display: flex;  /* Links lado a lado */
+  list-style: none; /* Remove os pontinhos da lista */
+  gap: 2rem;  /* Espaçamento entre os links */
   margin: 0;
   padding: 0;
 }
@@ -116,15 +116,15 @@ h3 {
   color: #fff;
   text-decoration: none;
   position: relative;
-  transition: 0.5s ease;          /* Suaviza os efeitos de hover */
+  transition: 0.5s ease; /* Suaviza os efeitos de hover */
 }
 
 .nav-minimal .nav-link::after {
-  content: '';                    /* Linha decorativa no hover */
+  content: ''; /* Linha decorativa no hover */
   position: absolute;
   left: 0;
   bottom: -5px;
-  width: 0;                       /* Começa invisível */
+  width: 0; /* Começa invisível */
   height: 2px;
   background: linear-gradient(to right, #FFA500, #FF2E2E); /* Gradiente igual ao logo */
   transition: width 0.5s ease;
@@ -714,4 +714,20 @@ h3 {
 .animation-on-scroll.visible {
   opacity:1;
   transform: translateY(0);
+}
+
+/* Custom animation for the about photo */
+.about-photo.animation-on-scroll {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.about-photo.animation-on-scroll.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-photo:hover img {
+  transform: scale(1.05);
 }
