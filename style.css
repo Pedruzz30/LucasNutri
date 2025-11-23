@@ -572,7 +572,7 @@ h3 {
 .socialContainer {
   width: 60px;
   height: 60px;
-  background-color: rgb(44, 44, 44);
+  background-color: #2c2c2c;
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -580,24 +580,31 @@ h3 {
   position: relative;
   overflow: hidden;
   color: #fff;
-  transition: transform 0.5s, box-shadow;
-   text-decoration: none;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  --brand-color: #2c2c2c;
+  z-index: 0;
 }
+
+.containerOne { --brand-color: #0072b1; }
+.containerTwo { --brand-color: #d62976; }
+.containerThree { --brand-color: #128C7E; }
+.containerFour { --brand-color: #f44336; }
 
 .socialContainer::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 50px;
+   background-color: var(--brand-color);
   transform: scale(0);
-  z-index: -1;
-  transition: transform 0.5s;
+  z-index: 0;
+  transition: transform 0.3s ease;
 }
 
-.containerOne:hover::before {background-color: #0072b1; transform: scale(1);}
-.containerTwo:hover::before {background-color: #d62976; transform: scale(1);}
-.containerThree:hover::before {background-color: #128C7E; transform: scale(1);}
-.containerFour:hover::before {background-color: #f44336; transform: scale(1);}
+.socialContainer:hover::before {
+  transform: scale(1);
+}
 
 .socialContainer:hover {
   transform: translateY(-4px);
@@ -611,15 +618,19 @@ h3 {
 .socialSvg {
   font-size: 20px;
   color: rgb(255, 255, 255);
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s;
 }
 
 .socialContainer:hover .socialSvg {
-  animation: slide-in-top 0.3 both;
+  animation: bounce 0.6s;
 }
 
-@keyframes slide-in-top {
-  0% { transform: translateY(-50px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+  60% { transform: translateY(3px); }
 }
 
 /* === FOOTER COMPACTO E MODERNO === */
