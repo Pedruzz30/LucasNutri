@@ -243,35 +243,47 @@ h3 {
 /* === CHECKPOINT: GRID PRINCIPAL DA SEÇÃO SOBRE === */
 .about-grid {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 3rem;
+  flex-direction: column;   /* empilha: foto em cima, texto embaixo */
+  align-items: center;      /* tudo centralizado */
+  gap: 2.5rem;
 }
 
 /* === CHECKPOINT: FOTO DO LUCAS === */
+.about-photo {
+  display: flex;
+  justify-content: center;
+}
+
 .about-photo img {
-  width: 300px;
+  width: 260px;
   max-width: 100%;
-  border-radius: 20px;
+  border-radius: 999px; /* estilo avatar redondo */
   object-fit: cover;
-  box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3); /* Glow laranja */
+  box-shadow: 0 10px 30px rgba(255, 165, 0, 0.3); /* glow laranja */
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-photo:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 14px 36px rgba(255, 165, 0, 0.4);
 }
 
 /* === CHECKPOINT: CONTEÚDO DE TEXTO DO LADO DA FOTO === */
 .about-content {
   flex: 1;
+  width: 100%;
+  max-width: 780px;              /* limite de largura do texto */
   min-width: 280px;
   font-family: 'Montserrat', sans-serif;
   font-size: 1.05rem;
   line-height: 1.9;
   color: #f2f2f2;
 
-  background: linear-gradient(145deg, #1a1a1a, #121212); /* fundo dark com leve degradê */
+  background: linear-gradient(145deg, #1a1a1a, #121212);
   padding: 2rem;
   border-radius: 16px;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6); /* efeito de profundidade */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 
   display: flex;
@@ -280,6 +292,7 @@ h3 {
 
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
 
 .about-content:hover {
   transform: translateY(-4px);
@@ -355,21 +368,19 @@ h3 {
   }
 }
 
-/* === CHECKPOINT: RESPONSIVO (TELAS PEQUENAS) === */
 @media (max-width: 768px) {
   .about-grid {
-    flex-direction: column;
+    /* já é column, então só garante alinhamento */
     align-items: center;
     text-align: center;
   }
 
-  .about-photo img {
-    width: 100%;
-    max-width: 280px;
+  .about-content {
+    text-align: left; /* se quiser manter o texto alinhado à esquerda */
   }
 
-  .about-content {
-    text-align: left;
+  .about-photo img {
+    max-width: 240px;
   }
 }
 
@@ -572,7 +583,7 @@ h3 {
 .socialContainer {
   width: 60px;
   height: 60px;
-  background-color: #2c2c2c;
+  background-color: rgb(44, 44, 44);
   border-radius: 50px;
   display: flex;
   align-items: center;
@@ -580,31 +591,24 @@ h3 {
   position: relative;
   overflow: hidden;
   color: #fff;
-  text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  --brand-color: #2c2c2c;
-  z-index: 0;
+  transition: transform 0.5s, box-shadow;
+   text-decoration: none;
 }
-
-.containerOne { --brand-color: #0072b1; }
-.containerTwo { --brand-color: #d62976; }
-.containerThree { --brand-color: #128C7E; }
-.containerFour { --brand-color: #f44336; }
 
 .socialContainer::before {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: 50px;
-   background-color: var(--brand-color);
   transform: scale(0);
-  z-index: 0;
-  transition: transform 0.3s ease;
+  z-index: -1;
+  transition: transform 0.5s;
 }
 
-.socialContainer:hover::before {
-  transform: scale(1);
-}
+.containerOne:hover::before {background-color: #0072b1; transform: scale(1);}
+.containerTwo:hover::before {background-color: #d62976; transform: scale(1);}
+.containerThree:hover::before {background-color: #128C7E; transform: scale(1);}
+.containerFour:hover::before {background-color: #f44336; transform: scale(1);}
 
 .socialContainer:hover {
   transform: translateY(-4px);
@@ -618,19 +622,15 @@ h3 {
 .socialSvg {
   font-size: 20px;
   color: rgb(255, 255, 255);
-  position: relative;
-  z-index: 1;
-  transition: transform 0.3s;
 }
 
 .socialContainer:hover .socialSvg {
-  animation: bounce 0.6s;
+  animation: slide-in-top 0.3 both;
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-6px); }
-  60% { transform: translateY(3px); }
+@keyframes slide-in-top {
+  0% { transform: translateY(-50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
 /* === FOOTER COMPACTO E MODERNO === */
