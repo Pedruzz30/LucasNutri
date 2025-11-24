@@ -1,9 +1,15 @@
 (function () {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobileMediaQuery = window.matchMedia('(max-width: 768px)');
 
+  /* ========================
+     SCROLL REVEAL
+  ======================== */
   function initScrollReveal() {
     const animatedElements = document.querySelectorAll('.animation-on-scroll');
     if (!animatedElements.length) return;
+
+    const isMobile = mobileMediaQuery.matches;
 
     if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       animatedElements.forEach((el) => el.classList.add('visible'));
@@ -20,14 +26,17 @@
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: '0px 0px -5% 0px',
+        threshold: isMobile ? 0.08 : 0.15,
+        rootMargin: isMobile ? '0px 0px -10% 0px' : '0px 0px -5% 0px',
       }
     );
 
     animatedElements.forEach((el) => observer.observe(el));
   }
 
+  /* ========================
+     HEADER SCROLLED STATE
+  ======================== */
   function initHeaderScrollState() {
     const header = document.querySelector('.header-minimal');
     if (!header) return;
@@ -40,15 +49,15 @@
     toggleHeaderState();
   }
 
+  /* ========================
+     SCROLL SPY (nav-link ativo)
+  ======================== */
   function initScrollSpy() {
     const navLinks = Array.from(document.querySelectorAll('.nav-link'));
     if (!navLinks.length) return;
 
     const sectionIds = ['sobre', 'consultoria', 'servicos', 'o-que-ele-faz', 'contato'];
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
-
+    const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
     if (!sections.length) return;
 
     const setActiveLink = (id) => {
@@ -59,6 +68,7 @@
     };
 
     let ticking = false;
+
     const updateActiveSection = () => {
       if (ticking) return;
       ticking = true;
@@ -105,6 +115,9 @@
     updateActiveSection();
   }
 
+  /* ========================
+     SMOOTH SCROLL
+  ======================== */
   function initSmoothScrollLinks() {
     const links = document.querySelectorAll('a.nav-link[href^="#"], footer a[href^="#"]');
     if (!links.length) return;
@@ -125,44 +138,9 @@
     });
   }
 
-  function initMobileMenu() {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('.nav-minimal');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const body = document.body;
-
-    if (!menuToggle || !navMenu) return;
-
-    const setMenuState = (isOpen) => {
-      navMenu.classList.toggle('open', isOpen);
-      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      body.classList.toggle('body--menu-open', isOpen);
-    };
-
-    const toggleMenu = () => {
-      const isOpen = !navMenu.classList.contains('open');
-      setMenuState(isOpen);
-    };
-
-    const closeMenu = () => setMenuState(false);
-
-    menuToggle.addEventListener('click', toggleMenu);
-
-    navLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        if (navMenu.classList.contains('open')) {
-          closeMenu();
-        }
-      });
-    });
-
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && navMenu.classList.contains('open')) {
-        closeMenu();
-      }
-    });
-  }
-
+  /* ========================
+     3D TILT NOS CARDS
+  ======================== */
   function initCardsTilt() {
     if (prefersReducedMotion || window.innerWidth <= 900) return;
 
@@ -172,7 +150,8 @@
     const maxRotation = 8;
 
     cards.forEach((card) => {
-      const baseTransform = card.style.transform || window.getComputedStyle(card).getPropertyValue('transform');
+      const computed = window.getComputedStyle(card).getPropertyValue('transform');
+      const baseTransform = computed && computed !== 'none' ? computed : '';
 
       card.addEventListener('mousemove', (event) => {
         const rect = card.getBoundingClientRect();
@@ -183,34 +162,34 @@
         const rotateX = ((0.5 - y / rect.height) * 2 * maxRotation).toFixed(2);
 
         const rotations = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        card.style.transform = baseTransform && baseTransform !== 'none' ? `${baseTransform} ${rotations}` : rotations;
+        card.style.transform = baseTransform
+          ? `${baseTransform} ${rotations}`
+          : rotations;
       });
 
       card.addEventListener('mouseleave', () => {
-        if (baseTransform && baseTransform !== 'none') {
-          card.style.transform = baseTransform;
-        } else {
-          card.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        }
+        card.style.transform = baseTransform || 'rotateX(0deg) rotateY(0deg)';
       });
     });
   }
 
+  /* ========================
+     FOOTER YEAR
+  ======================== */
   function initFooterYear() {
     const yearEl = document.getElementById('year');
-    if (yearEl) {
-      yearEl.textContent = new Date().getFullYear();
-    }
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
   }
 
+  /* ========================
+     DOM READY
+  ======================== */
   document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initHeaderScrollState();
     initScrollSpy();
     initSmoothScrollLinks();
-    initMobileMenu();
     initCardsTilt();
     initFooterYear();
   });
 })();
-

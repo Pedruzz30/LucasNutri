@@ -91,16 +91,6 @@ h3 {
   margin: 0;
 }
 
-/* Botão para abrir o menu em telas pequenas */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
 /* ================== NAV PRINCIPAL ================== */
 .nav-minimal {
   /* garante que o nav não quebre nada por padrão */
@@ -177,12 +167,6 @@ h3 {
     align-items: flex-start;
     padding: 0.85rem 1rem 1rem;
     gap: 0.6rem;
-  }
-
-  /* Ícone de menu aparece */
-  .menu-toggle {
-    display: block;
-    margin-left: auto;
   }
 
   /* Nav vira bloco abaixo do header */
@@ -881,4 +865,237 @@ h3 {
 
 .about-photo:hover img {
   transform: scale(1.05);
+}
+
+/* ================== AJUSTES MOBILE GERAIS ================== */
+@media (max-width: 768px) {
+  body {
+    font-size: 0.98rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .main-content {
+    padding-top: 88px;
+  }
+
+  .header-minimal {
+    padding: 0.65rem 0;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.38);
+  }
+
+  .header-minimal .container {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 1rem;
+    gap: 0.75rem;
+  }
+
+  .logo-container {
+    gap: 0.65rem;
+  }
+
+  .logo-img {
+    height: 62px;
+  }
+
+  .logo {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-minimal {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.35rem;
+    background: #0f0f0f;
+    border-radius: 0 0 16px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
+    padding: 0.25rem 1rem 0.75rem;
+    display: none;
+  }
+
+  .nav-minimal.open {
+    display: block;
+  }
+
+  .nav-minimal ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.65rem;
+  }
+
+  .nav-minimal .nav-link {
+    width: 100%;
+    padding: 0.55rem 0;
+    font-size: 0.98rem;
+    letter-spacing: 0.06em;
+  }
+
+  .nav-minimal .nav-link::after {
+    bottom: 6px;
+    height: 2px;
+  }
+
+  body.body--menu-open {
+    overflow: hidden;
+  }
+
+  .section-minimal {
+    padding: 60px 16px;
+  }
+
+  .section-title {
+    font-size: 1.65rem;
+    margin-bottom: 2.1rem;
+    line-height: 1.25;
+  }
+
+  .about-grid {
+    gap: 1.75rem;
+  }
+
+  .about-photo img {
+    max-width: 210px;
+    box-shadow: 0 8px 24px rgba(255, 165, 0, 0.22);
+  }
+
+  .about-content {
+    padding: 1.35rem 1.1rem;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    gap: 1rem;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+  }
+
+  .about-content h3 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.05rem;
+  }
+
+  .consultoria-info {
+    padding: 1.5rem 1.25rem;
+    font-size: 1rem;
+    line-height: 1.65;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+  }
+
+  .consultoria-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .skills-container {
+    margin-top: 1.5rem;
+  }
+
+  .skills-title {
+    font-size: 1.05rem;
+  }
+
+  .skills-list {
+    gap: 0.55rem 0.7rem;
+  }
+
+  .skills-list li {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    box-shadow: inset 0 0 3px rgba(255, 165, 0, 0.25);
+  }
+
+  .services-grid {
+    gap: 1.25rem;
+  }
+
+  .service-item {
+    width: 100%;
+    max-width: 360px;
+    padding: 1.35rem;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  }
+
+  .service-item h3 {
+    font-size: 1.25rem;
+  }
+
+  .service-item p {
+    font-size: 0.95rem;
+  }
+
+  .what-i-do-animated {
+    gap: 1.1rem;
+    padding: 2rem 0.75rem 2.5rem;
+  }
+
+  .card {
+    max-width: 340px;
+    padding: 2px;
+    border-radius: 0.85rem;
+  }
+
+  .card::after {
+    top: 14px;
+    filter: blur(14px);
+    opacity: 0.65;
+  }
+
+  .card-info {
+    padding: 1.4rem 1.1rem;
+    gap: 0.65rem;
+  }
+
+  .card i {
+    font-size: 1.9rem;
+  }
+
+  .card .title {
+    font-size: 1.15rem;
+  }
+
+  .card p {
+    font-size: 0.88rem;
+  }
+
+  #contato.section-minimal {
+    padding: 70px 14px;
+  }
+
+  .contact-card {
+    padding: 18px;
+    gap: 0.65rem;
+  }
+
+  .socialContainer {
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.45);
+  }
+
+  .footer-minimal {
+    padding: 32px 16px 16px;
+  }
+
+  .footer-content {
+    gap: 1.4rem;
+  }
+
+  .footer-logo span {
+    font-size: 0.95rem;
+  }
+
+  .footer-links h4 {
+    font-size: 0.95rem;
+  }
+
+  .footer-links a {
+    font-size: 0.88rem;
+  }
 }
