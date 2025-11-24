@@ -5,12 +5,7 @@
     const animatedElements = document.querySelectorAll('.animation-on-scroll');
     if (!animatedElements.length) return;
 
-    if (prefersReducedMotion) {
-      animatedElements.forEach((el) => el.classList.add('visible'));
-      return;
-    }
-
-    if (!('IntersectionObserver' in window)) {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       animatedElements.forEach((el) => el.classList.add('visible'));
       return;
     }
@@ -38,11 +33,7 @@
     if (!header) return;
 
     const toggleHeaderState = () => {
-      if (window.scrollY > 10) {
-        header.classList.add('header-scrolled');
-      } else {
-        header.classList.remove('header-scrolled');
-      }
+      header.classList.toggle('header-scrolled', window.scrollY > 10);
     };
 
     window.addEventListener('scroll', toggleHeaderState, { passive: true });
@@ -56,59 +47,62 @@
     const sectionIds = ['sobre', 'consultoria', 'servicos', 'o-que-ele-faz', 'contato'];
     const sections = sectionIds
       .map((id) => document.getElementById(id))
-      .filter((section) => !!section);
+      .filter(Boolean);
 
     if (!sections.length) return;
 
     const setActiveLink = (id) => {
       navLinks.forEach((link) => {
-        const href = link.getAttribute('href');
-        const targetId = href ? href.replace('#', '') : '';
-        if (targetId === id) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
+        const targetId = link.getAttribute('href')?.replace('#', '');
+        link.classList.toggle('active', targetId === id);
       });
     };
 
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              setActiveLink(entry.target.id);
-            }
-          });
-        },
-        {
-          threshold: 0.35,
-          rootMargin: '-30% 0px -45% 0px',
-        }
-      );
+    let ticking = false;
+    const updateActiveSection = () => {
+      if (ticking) return;
+      ticking = true;
 
-      sections.forEach((section) => observer.observe(section));
-    } else {
-      const handleScroll = () => {
-        let closestSection = sections[0];
-        let closestOffset = Number.NEGATIVE_INFINITY;
+      window.requestAnimationFrame(() => {
+        const referenceY = window.innerHeight * 0.3;
+        let activeSection = sections[0];
+        let foundInView = false;
+        let lastPassed = null;
+        let lastPassedTop = -Infinity;
+        let upcoming = null;
 
         sections.forEach((section) => {
           const rect = section.getBoundingClientRect();
-          if (rect.top <= window.innerHeight * 0.5 && rect.top > closestOffset) {
-            closestOffset = rect.top;
-            closestSection = section;
+          const inView = rect.top <= referenceY && rect.bottom >= referenceY;
+
+          if (inView && !foundInView) {
+            activeSection = section;
+            foundInView = true;
+            return;
+          }
+
+          if (!foundInView && rect.top <= referenceY && rect.top > lastPassedTop) {
+            lastPassedTop = rect.top;
+            lastPassed = section;
+          }
+
+          if (!foundInView && !upcoming && rect.top > referenceY) {
+            upcoming = section;
           }
         });
 
-        if (closestSection) {
-          setActiveLink(closestSection.id);
+        if (!foundInView) {
+          activeSection = lastPassed || upcoming || sections[0];
         }
-      };
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      handleScroll();
-    }
+        setActiveLink(activeSection.id);
+        ticking = false;
+      });
+    };
+
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+    updateActiveSection();
   }
 
   function initSmoothScrollLinks() {
@@ -134,28 +128,25 @@
   function initMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('.nav-minimal');
-    const body = document.body;
     const navLinks = document.querySelectorAll('.nav-link');
+    const body = document.body;
 
     if (!menuToggle || !navMenu) return;
 
     const setMenuState = (isOpen) => {
       navMenu.classList.toggle('open', isOpen);
       menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      if (body) {
-        body.classList.toggle('body--menu-open', isOpen);
-      }
+      body.classList.toggle('body--menu-open', isOpen);
+    };
+
+    const toggleMenu = () => {
+      const isOpen = !navMenu.classList.contains('open');
+      setMenuState(isOpen);
     };
 
     const closeMenu = () => setMenuState(false);
 
-    menuToggle.addEventListener('click', () => {
-      const isOpen = navMenu.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      if (body) {
-        body.classList.toggle('body--menu-open', isOpen);
-      }
-    });
+    menuToggle.addEventListener('click', toggleMenu);
 
     navLinks.forEach((link) => {
       link.addEventListener('click', () => {
@@ -181,6 +172,8 @@
     const maxRotation = 8;
 
     cards.forEach((card) => {
+      const baseTransform = card.style.transform || window.getComputedStyle(card).getPropertyValue('transform');
+
       card.addEventListener('mousemove', (event) => {
         const rect = card.getBoundingClientRect();
         const x = event.clientX - rect.left;
@@ -189,11 +182,16 @@
         const rotateY = ((x / rect.width - 0.5) * 2 * maxRotation).toFixed(2);
         const rotateX = ((0.5 - y / rect.height) * 2 * maxRotation).toFixed(2);
 
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        const rotations = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        card.style.transform = baseTransform && baseTransform !== 'none' ? `${baseTransform} ${rotations}` : rotations;
       });
 
       card.addEventListener('mouseleave', () => {
-        card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        if (baseTransform && baseTransform !== 'none') {
+          card.style.transform = baseTransform;
+        } else {
+          card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        }
       });
     });
   }
