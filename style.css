@@ -458,10 +458,48 @@ h3 {
 
 /* === CHECKPOINT: Seção Contato === */
 #contato.section-minimal {
-  background-color: #111;
+  background: #111;
+  padding: 90px 20px;
   color: #fff;
-  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
+
+/* Linha decorativa suave no topo */
+#contato.section-minimal::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 3px;
+  background: linear-gradient(to right, #f7ba2b, #ea5358);
+  border-radius: 4px;
+  opacity: 0.9;
+}
+
+/* Texto abaixo do título */
+#contato .section-subtitle {
+  margin: -1rem auto 3rem;
+  font-size: 1.05rem;
+  max-width: 600px;
+  color: #bbb;
+  line-height: 1.6;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #contato.section-minimal {
+    padding: 70px 16px;
+  }
+
+  #contato .section-subtitle {
+    font-size: 0.95rem;
+    max-width: 90%;
+  }
+}
+
 
 /* === CHECKPOINT: Layout da Seção Animada === */
 .what-i-do-animated {
@@ -472,6 +510,7 @@ h3 {
   padding: 4rem 1rem;
   background-color: #121212;
 }
+
 
 /* === Card com gradiente e glow === */
 .card {
@@ -564,74 +603,103 @@ h3 {
   }
 }
 
-/* === Contact Icons === */
+/* === Contact Icons (refinado) === */
 .contact-card {
   width: fit-content;
   height: fit-content;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 25px;
+  padding: 24px;
   margin: 0 auto;
   gap: 1rem;
   background: #111;
   border-radius: 14px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-
 }
 
+/* Bolinhas sociais */
 .socialContainer {
   width: 60px;
   height: 60px;
-  background-color: rgb(44, 44, 44);
-  border-radius: 50px;
-  display: flex;
+  background-color: #2c2c2c;
+  border-radius: 999px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
   color: #fff;
-  transition: transform 0.5s, box-shadow;
-   text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+
+  /* animação mais curta e suave */
+  transition:
+    transform 0.22s ease-out,
+    box-shadow 0.22s ease-out,
+    background-color 0.22s ease-out;
 }
 
+/* Glow de fundo */
 .socialContainer::before {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50px;
-  transform: scale(0);
+  border-radius: inherit;
+  transform: scale(0.2);
+  opacity: 0;
   z-index: -1;
-  transition: transform 0.5s;
+  transition:
+    transform 0.26s ease-out,
+    opacity 0.26s ease-out;
 }
 
-.containerOne:hover::before {background-color: #0072b1; transform: scale(1);}
-.containerTwo:hover::before {background-color: #d62976; transform: scale(1);}
-.containerThree:hover::before {background-color: #128C7E; transform: scale(1);}
-.containerFour:hover::before {background-color: #f44336; transform: scale(1);}
+/* Cores por rede */
+.containerOne::before { background-color: #0072b1; }  /* LinkedIn */
+.containerTwo::before { background-color: #d62976; }  /* Instagram */
+.containerThree::before { background-color: #128C7E; }/* WhatsApp */
+.containerFour::before { background-color: #f44336; } /* Email */
 
+/* Hover geral */
 .socialContainer:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
 }
 
+.socialContainer:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Clique */
 .socialContainer:active {
-  transform: scale(0.9);
+  transform: translateY(-1px) scale(0.96);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
+/* Ícone dentro */
 .socialSvg {
   font-size: 20px;
-  color: rgb(255, 255, 255);
+  color: #fff;
+  transform: translateY(0);
+  opacity: 1;
+  transition:
+    transform 0.22s ease-out,
+    opacity 0.22s ease-out;
 }
 
+/* Em vez de keyframe doidão, só um popzinho leve */
 .socialContainer:hover .socialSvg {
-  animation: slide-in-top 0.3 both;
+  transform: translateY(-2px);
 }
 
-@keyframes slide-in-top {
-  0% { transform: translateY(-50px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+/* Acessibilidade: foco no teclado */
+.socialContainer:focus-visible {
+  outline: 2px solid #ffa500;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.4);
 }
+
 
 /* === FOOTER COMPACTO E MODERNO === */
 .footer-minimal {
