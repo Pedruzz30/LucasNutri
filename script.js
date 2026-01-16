@@ -49,7 +49,7 @@
     toggleHeaderState();
   }
 
-   /* ========================
+  /* ========================
      MENU MOBILE
   ======================== */
   function initMobileMenu() {
@@ -57,13 +57,29 @@
     const nav = document.getElementById('nav-principal');
     if (!toggleButton || !nav) return;
 
+    const focusableSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
+    let lastFocusedElement = null;
+
     const setMenuState = (isOpen) => {
       nav.classList.toggle('open', isOpen);
       toggleButton.classList.toggle('is-active', isOpen);
       document.body.classList.toggle('body--menu-open', isOpen);
       toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       toggleButton.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+      nav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+
+      if (isOpen) {
+        lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+        const firstFocusable = nav.querySelector(focusableSelector);
+        if (firstFocusable instanceof HTMLElement) {
+          firstFocusable.focus();
+        }
+      } else if (lastFocusedElement instanceof HTMLElement) {
+        lastFocusedElement.focus();
+      }
     };
+
+    nav.setAttribute('aria-hidden', 'true');
 
     toggleButton.addEventListener('click', () => {
       const isOpen = nav.classList.contains('open');
@@ -80,6 +96,22 @@
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         setMenuState(false);
+      }
+
+      if (event.key !== 'Tab' || !nav.classList.contains('open')) return;
+
+      const focusableItems = Array.from(nav.querySelectorAll(focusableSelector));
+      if (!focusableItems.length) return;
+
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems[focusableItems.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
+        firstItem.focus();
       }
     });
 
@@ -174,22 +206,39 @@
     cards.forEach((card) => {
       const computed = window.getComputedStyle(card).getPropertyValue('transform');
       const baseTransform = computed && computed !== 'none' ? computed : '';
+      let rafId = null;
+      let latestEvent = null;
 
-      card.addEventListener('mousemove', (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
+      const handleMove = (event) => {
+        latestEvent = event;
+        if (rafId) return;
 
-        const rotateY = ((x / rect.width - 0.5) * 2 * maxRotation).toFixed(2);
-        const rotateX = ((0.5 - y / rect.height) * 2 * maxRotation).toFixed(2);
+        rafId = window.requestAnimationFrame(() => {
+          if (!latestEvent) return;
+          const rect = card.getBoundingClientRect();
+          const x = latestEvent.clientX - rect.left;
+          const y = latestEvent.clientY - rect.top;
 
-        const rotations = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        card.style.transform = baseTransform
-          ? `${baseTransform} ${rotations}`
-          : rotations;
-      });
+          const rotateY = ((x / rect.width - 0.5) * 2 * maxRotation).toFixed(2);
+          const rotateX = ((0.5 - y / rect.height) * 2 * maxRotation).toFixed(2);
+
+          const rotations = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+          card.style.transform = baseTransform
+            ? `${baseTransform} ${rotations}`
+            : rotations;
+
+          rafId = null;
+        });
+      };
+
+      card.addEventListener('mousemove', handleMove);
 
       card.addEventListener('mouseleave', () => {
+        if (rafId) {
+          window.cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+        latestEvent = null;
         card.style.transform = baseTransform || 'rotateX(0deg) rotateY(0deg)';
       });
     });

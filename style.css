@@ -84,14 +84,14 @@ h3 {
 
 /* Header Style checkpoint */
 .header-minimal {
-  position: fixed; /* Fixa o header no topo da página */
+  position: fixed;
   top: 0;
-  width: 100%; /* Ocupa toda a largura */
-  background-color: #0f0f0f; /* Fundo preto escuro (dark) */
-  color: white; /* Cor do texto padrão */
-  z-index: 1000; /* Fica por cima de tudo */
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);  /* Sombra suave pra dar destaque */
-  padding: 0.8rem 0; /* Espaçamento interno (vertical) */
+  width: 100%;
+  background-color: #0f0f0f;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  padding: 0.8rem 0;
 }
 
 .header-minimal.header-scrolled {
@@ -100,26 +100,25 @@ h3 {
 }
 
 .header-minimal .container {
-  display: flex; /* Alinha logo e menu lado a lado */
-  justify-content: space-between;  /* Um em cada lado */
-  align-items: center; /* Centraliza verticalmente */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   gap: 1.5rem;
 }
 
 .main-content {
-  padding-top: 100px; /* Compensa a altura do header fixo */
+  padding-top: 100px;
 }
 
 .logo-container {
-  display: flex; /* Logo e texto lado a lado */
+  display: flex;
   align-items: center;
-  gap: 1rem; /* Espaço entre a imagem e o texto */
+  gap: 1rem;
 }
-
 
 .logo-img {
   width: auto;
-  height: 90px; /* ou 60px pra mais discreta */
+  height: 90px;
   object-fit: contain;
 }
 
@@ -127,10 +126,10 @@ h3 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.6rem;
   font-weight: 700;
-  background: linear-gradient(to right, #FFA500, #FF2E2E); /* Gradiente no texto */
-  -webkit-background-clip: text; /* Clip do texto pro gradiente */
+  background: linear-gradient(to right, #FFA500, #FF2E2E);
+  -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; /* Cor transparente pra mostrar o gradiente */
+  color: transparent;
   margin: 0;
 }
 
@@ -185,11 +184,9 @@ h3 {
 
 /* ================== NAV PRINCIPAL ================== */
 .nav-minimal {
-  /* garante que o nav não quebre nada por padrão */
   display: block;
 }
 
-/* Lista de links */
 .nav-minimal ul {
   display: flex;
   align-items: center;
@@ -200,7 +197,6 @@ h3 {
   padding: 0;
 }
 
-/* Links do menu */
 .nav-minimal .nav-link {
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
@@ -211,14 +207,11 @@ h3 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding-block: 0.15rem;
-
-  /* transições suaves e rápidas */
   transition:
     color 0.22s ease-out,
     transform 0.22s ease-out;
 }
 
-/* Linha decorativa embaixo de cada link */
 .nav-minimal .nav-link::after {
   content: '';
   position: absolute;
@@ -228,13 +221,10 @@ h3 {
   height: 2px;
   background: linear-gradient(to right, #FFA500, #FF2E2E);
   border-radius: 999px;
-
   transform-origin: left;
-  transition:
-    width 0.24s ease-out;
+  transition: width 0.24s ease-out;
 }
 
-/* Hover e link ativo */
 .nav-minimal .nav-link:hover::after,
 .nav-minimal .nav-link.active::after {
   width: 100%;
@@ -246,7 +236,6 @@ h3 {
   transform: translateY(-1px);
 }
 
-/* Foco no teclado (acessível) */
 .nav-minimal .nav-link:focus-visible {
   outline: 2px solid #FFA500;
   outline-offset: 3px;
@@ -294,6 +283,17 @@ h3 {
   background: linear-gradient(135deg, #0f6d59, #1bc26b);
   color: #fff;
   box-shadow: 0 10px 26px rgba(27, 194, 107, 0.25);
+}
+
+.btn-outline {
+  border: 1px solid rgba(255, 165, 0, 0.6);
+  color: #ffa500;
+  background: transparent;
+}
+
+.btn-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(255, 165, 0, 0.2);
 }
 
 .btn-whatsapp:hover {
@@ -1235,3 +1235,4 @@ h3 {
     font-size: 0.88rem;
   }
 }
+
