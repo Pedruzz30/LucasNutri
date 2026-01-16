@@ -3,171 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Lucas Souza | Nutricionista Esportivo</title>
-  <meta name="description" content="Nutrição esportiva, emagrecimento saudável e acompanhamento personalizado. Estratégia alimentar com foco em performance, rotina e resultado real. Atendimento online e presencial.">
-  <meta name="theme-color" content="#0f0f0f">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-
+  <meta
+    name="description"
+    content="Nutrição esportiva, emagrecimento saudável e acompanhamento personalizado com foco em performance, constância e resultados reais. Consultas online e presenciais com Lucas Souza."
+  >
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <!-- Skip link (acessibilidade) -->
-  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
   <header class="header-minimal">
     <div class="container">
       <div class="logo-container">
-        <img
-          src="assets/Foto de Perfil/Logo-Lucas-Souza-Transparente.png"
-          alt="Logo do Lucas Souza Nutricionista"
-          class="logo-img"
-          width="90"
-          height="90"
-          loading="eager"
-          decoding="async">
-
+        <img src="assets/Foto de Perfil/Logo-Lucas-Souza-Transparente.png" alt="Lucas Souza Nutricionista" class="logo-img">
         <div>
           <h1 class="logo">Lucas Souza</h1>
-          <p class="tagline">Nutrição Esportiva &amp; Emagrecimento</p>
+          <p class="tagline">NUTRIÇÃO ESPORTIVA &amp; EMAGRECIMENTO</p>
         </div>
       </div>
 
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-controls="nav-principal" aria-expanded="false">
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+      </button>
+
       <nav class="nav-minimal" id="nav-principal" aria-label="Navegação principal">
         <ul>
-          <li><a href="#sobre" class="nav-link">Sobre</a></li>
-          <li><a href="#consultoria" class="nav-link">Consultoria</a></li>
-          <li><a href="#servicos" class="nav-link">Serviços</a></li>
-          <li><a href="#contato" class="nav-link">Contato</a></li>
+          <li><a href="#sobre" class="nav-link">SOBRE</a></li>
+          <li><a href="#consultoria" class="nav-link">CONSULTORIA</a></li>
+          <li><a href="#servicos" class="nav-link">SERVIÇOS</a></li>
+          <li><a href="#o-que-ele-faz" class="nav-link">O QUE FAÇO</a></li>
+          <li><a href="#contato" class="nav-link">CONTATO</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main id="conteudo" class="main-content">
-
-    <!-- HERO (curto, objetivo, com CTA) -->
-    <section class="section-minimal animation-on-scroll" id="inicio" aria-labelledby="hero-title">
-      <div class="container">
-        <header class="hero-header">
-          <h2 class="section-title" id="hero-title">Nutrição com estratégia, rotina e resultado real.</h2>
-
-          <p class="hero-subtitle">
-            Seja para <strong>emagrecer</strong>, <strong>ganhar performance</strong> ou cuidar da saúde, você não precisa de dieta maluca.
-            Precisa de um plano inteligente, ajustado com acompanhamento.
-          </p>
-
-          <div class="hero-ctas">
-            <a class="cta-button" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-whatsapp" aria-hidden="true"></i>
-              Agendar pelo WhatsApp
-            </a>
-
-            <a class="cta-secondary" href="#servicos">
-              Ver serviços
-            </a>
-          </div>
-
-          <p class="hero-note">
-            Atendimento <strong>online</strong> e <strong>presencial</strong>. Resposta clara e objetiva.
-          </p>
-        </header>
-      </div>
-    </section>
-
+  <main class="main-content" id="conteudo">
     <!-- SOBRE MIM -->
-    <section id="sobre" class="section-minimal animation-on-scroll" aria-labelledby="sobre-title">
+    <section id="sobre" class="section-minimal animation-on-scroll">
       <div class="container">
-        <h2 class="section-title" id="sobre-title">Sobre</h2>
-
+        <h2 class="section-title">SOBRE MIM</h2>
         <div class="about-grid">
-          <figure class="about-photo">
-            <img
-              src="assets/Foto de Perfil/Lucas-imagem-de-perfil.webp"
-              alt="Lucas Souza durante atendimento nutricional"
-              width="260"
-              height="260"
-              loading="lazy"
-              decoding="async">
-          </figure>
-
+          <div class="about-photo">
+            <img src="assets/Foto de Perfil/Lucas-imagem-de-perfil.webp" alt="Lucas Souza em consulta">
+          </div>
           <div class="about-content">
             <div class="about-block">
-              <h3>Quem eu sou</h3>
-              <p>
-                Sou nutricionista com foco em <strong>nutrição esportiva</strong> e <strong>emagrecimento saudável</strong>.
-                Meu objetivo é te ajudar a evoluir com um plano que funciona na prática — sem extremismos, sem terrorismo alimentar
-                e com acompanhamento de verdade.
-              </p>
+              <h3>Quem sou eu?</h3>
+              <p>Sou nutricionista com foco em nutrição esportiva e emagrecimento saudável. Meu trabalho é orientar com método, constância e acompanhamento real para quem busca performance, saúde e resultados sustentáveis, sem promessas milagrosas.</p>
             </div>
 
             <div class="about-block">
-              <h3>Minha forma de trabalho</h3>
-              <p>
-                Eu não te “coloco numa dieta”: eu construo uma <strong>estratégia</strong>. A rotina manda.
-                Por isso o plano é ajustado conforme sua evolução, sua agenda e seu objetivo (performance, estética ou saúde).
-              </p>
+              <h3>O que faço além do consultório?</h3>
+              <p>Além das consultas, desenvolvo programas personalizados para atletas de diferentes modalidades e presto consultoria para academias e profissionais da área da saúde. Tudo com base em ciência, experiência prática e compromisso com performance e evolução constante.</p>
             </div>
 
             <div class="about-block">
-              <h3>O que você pode esperar</h3>
-              <p>
-                Clareza, direção e constância. Você vai saber exatamente o que fazer, como fazer e por que está fazendo.
-                Resultado real vem de consistência — e eu te guio nesse processo.
-              </p>
+              <h3>Qual é o meu objetivo com você?</h3>
+              <p>Construir um plano que encaixe na sua rotina e evolua com você. A ideia não é te colocar em uma dieta engessada, e sim te dar direção, autonomia e ajustes estratégicos para manter constância, energia e resultados reais.</p>
             </div>
-
-            <p class="about-location">
-              <strong>Atendimento:</strong> online e presencial em <span>[Cidade/Estado]</span>.
-            </p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CONSULTORIA + ESPECIALIDADES -->
-    <section class="section-minimal animation-on-scroll" id="consultoria" aria-labelledby="consultoria-title">
+    <section class="section-minimal animation-on-scroll" id="consultoria">
       <div class="container">
-        <h2 class="section-title" id="consultoria-title">Consultoria</h2>
+        <h2 class="section-title">CONSULTORIA</h2>
 
         <div class="consultoria-info">
-          <h3>Quer transformar sua alimentação sem complicar sua vida?</h3>
+          <h3>Planos com método, constância e acompanhamento de verdade</h3>
 
           <p>
-            A consultoria é pra quem quer resultado e não quer perder tempo com método errado.
-            Eu analiso seu cenário e monto um plano com <strong>estratégia</strong>, <strong>praticidade</strong> e <strong>ajuste contínuo</strong>.
+            Atendo no formato <strong>on-line</strong> e <strong>presencial</strong>, sempre com foco em
+            performance, saúde e resultado sustentável. Você recebe um plano que encaixa na sua rotina
+            e evolui com acompanhamento.
           </p>
 
           <p>
-            Você pode me chamar no <strong>WhatsApp</strong> pra entender qual serviço faz mais sentido pro seu objetivo.
-            Eu respondo com clareza e já te oriento sobre o melhor caminho.
+            A consulta é individual, com avaliação completa, metas claras e estratégias alimentares
+            personalizadas. O objetivo é melhorar seu rendimento, composição corporal e qualidade de vida
+            sem extremos.
           </p>
 
-          <div class="mini-trust">
-            <div class="trust-item">
-              <i class="fas fa-bullseye" aria-hidden="true"></i>
-              <p><strong>Plano personalizado</strong><br><span>Baseado na sua rotina.</span></p>
-            </div>
+          <p>
+            Pelo <strong>WhatsApp</strong>, você pode tirar dúvidas, entender o processo e agendar sua consulta.
+            Respondo com clareza, objetividade e atenção ao que você precisa.
+          </p>
 
-            <div class="trust-item">
-              <i class="fas fa-chart-line" aria-hidden="true"></i>
-              <p><strong>Evolução monitorada</strong><br><span>O plano muda com você.</span></p>
-            </div>
-
-            <div class="trust-item">
-              <i class="fas fa-handshake" aria-hidden="true"></i>
-              <p><strong>Acompanhamento real</strong><br><span>Direção e constância.</span></p>
-            </div>
-          </div>
+          <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
+            Agendar pelo WhatsApp
+          </a>
         </div>
 
-        <div class="skills-container" aria-labelledby="especialidades-title">
-          <h3 class="skills-title" id="especialidades-title">Especialidades</h3>
+        <div class="consultoria-steps">
+          <h3 class="skills-title">Como funciona</h3>
+          <ul class="steps-list">
+            <li>Diagnóstico completo e metas alinhadas ao seu objetivo.</li>
+            <li>Plano alimentar personalizado com foco em performance e resultados reais.</li>
+            <li>Monitoramento contínuo com ajustes periódicos para manter a evolução.</li>
+          </ul>
+        </div>
+
+        <div class="skills-container">
+          <h3 class="skills-title">Especialidades</h3>
           <ul class="skills-list">
             <li>Nutrição Esportiva</li>
             <li>Emagrecimento Saudável</li>
@@ -183,88 +127,68 @@
     </section>
 
     <!-- SERVIÇOS -->
-    <section id="servicos" class="section-minimal animation-on-scroll" aria-labelledby="servicos-title">
+    <section id="servicos" class="section-minimal animation-on-scroll">
       <div class="container">
-        <h2 class="section-title" id="servicos-title">Serviços</h2>
-
-        <p class="section-intro">
-          Escolha o formato ideal pro seu objetivo. Todos os serviços incluem estratégia personalizada e ajustes conforme evolução.
-        </p>
-
+        <h2 class="section-title">SERVIÇOS</h2>
         <div class="services-grid">
-          <article class="service-item">
-            <h3>Consulta Individual</h3>
-            <p>
-              Avaliação completa + plano alimentar personalizado com acompanhamento semanal.
-              Ideal pra quem quer direção clara e ajustes consistentes.
-            </p>
-
-            <ul class="service-bullets">
-              <li>Avaliação física monitorada por aplicativo</li>
-              <li>Prescrição de exames (quando necessário)</li>
-              <li>Orientação com fitoterápicos (quando indicado)</li>
-              <li>Estratégias alimentares personalizadas</li>
+          <div class="service-item">
+            <h3>CONSULTA INDIVIDUAL</h3>
+            <p>Avaliação completa com estratégia, clareza e direcionamento.</p>
+            <ul class="service-list">
+              <li>Avaliação física monitorada por aplicativo.</li>
+              <li>Prescrição de exames quando necessário.</li>
+              <li>Fitoterápicos quando indicados.</li>
+              <li>Estratégias alimentares personalizadas.</li>
             </ul>
-          </article>
-
-          <article class="service-item">
-            <h3>Programa para Atletas</h3>
-            <p>
-              Nutrição esportiva com foco em performance e recuperação.
-              Estratégia pensada para otimização de desempenho e melhora do rendimento esportivo.
-            </p>
-
-            <ul class="service-bullets">
-              <li>Estratégia por fase: treino, competição e recuperação</li>
-              <li>Ajustes de acordo com carga de treino e objetivo</li>
-              <li>Melhora contínua do rendimento</li>
+          </div>
+          <div class="service-item">
+            <h3>PROGRAMA PARA ATLETAS</h3>
+            <p>Nutrição esportiva estruturada para alto rendimento.</p>
+            <ul class="service-list">
+              <li>Otimização de desempenho e melhora do rendimento esportivo.</li>
+              <li>Estratégias para performance e recuperação muscular.</li>
+              <li>Periodização alimentar alinhada ao treino.</li>
             </ul>
-          </article>
-
-          <article class="service-item">
-            <h3>Acompanhamento Personalizado</h3>
-            <p>
-              Monitoramento contínuo com ajustes periódicos do plano alimentar.
-              Perfeito pra quem quer constância e evolução sem travar na rotina.
-            </p>
-
-            <ul class="service-bullets">
-              <li>Ajustes rápidos conforme mudanças na rotina</li>
-              <li>Correções estratégicas para manter o progresso</li>
-              <li>Suporte para constância e aderência</li>
+          </div>
+          <div class="service-item">
+            <h3>ACOMPANHAMENTO PERSONALIZADO</h3>
+            <p>Constância com ajustes inteligentes ao longo do tempo.</p>
+            <ul class="service-list">
+              <li>Monitoramento contínuo com feedbacks objetivos.</li>
+              <li>Ajustes periódicos do plano alimentar.</li>
+              <li>Direção clara para manter evolução e resultado.</li>
             </ul>
-          </article>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- O QUE ELE FAZ -->
-    <section class="section-minimal animation-on-scroll" id="o-que-ele-faz" aria-labelledby="oqf-title">
+    <section class="section-minimal animation-on-scroll" id="o-que-ele-faz">
       <div class="container">
-        <h2 class="section-title" id="oqf-title">O que eu posso fazer por você</h2>
-
+        <h2 class="section-title">O que eu posso fazer por você</h2>
         <div class="what-i-do-animated">
           <div class="card">
             <div class="card-info">
-              <i class="fas fa-dumbbell" aria-hidden="true"></i>
+              <i class="fas fa-dumbbell"></i>
               <h3 class="title">Nutrição Esportiva</h3>
-              <p>Performance, recuperação e otimização de desempenho com estratégia personalizada.</p>
+              <p>Performance, recuperação e otimização de desempenho para melhorar o rendimento.</p>
             </div>
           </div>
 
           <div class="card">
             <div class="card-info">
-              <i class="fas fa-balance-scale" aria-hidden="true"></i>
+              <i class="fas fa-balance-scale"></i>
               <h3 class="title">Controle de Peso</h3>
-              <p>Emagrecimento saudável e sustentável com acompanhamento e ajustes constantes.</p>
+              <p>Emagrecimento sustentável com método, acompanhamento e evolução contínua.</p>
             </div>
           </div>
 
           <div class="card">
             <div class="card-info">
-              <i class="fas fa-apple-alt" aria-hidden="true"></i>
+              <i class="fas fa-apple-alt"></i>
               <h3 class="title">Educação Nutricional</h3>
-              <p>Aprenda a comer bem com clareza, sem restrições absurdas e com autonomia.</p>
+              <p>Clareza e autonomia alimentar sem extremismos, com foco em rotina real.</p>
             </div>
           </div>
         </div>
@@ -272,39 +196,43 @@
     </section>
 
     <!-- CONTATO -->
-    <section id="contato" class="section-minimal contact-section animation-on-scroll" aria-labelledby="contato-title">
+    <section id="contato" class="section-minimal contact-section animation-on-scroll">
       <div class="container">
-        <h2 class="section-title" id="contato-title">Contato</h2>
+        <h2 class="section-title">CONTATO</h2>
         <p class="section-subtitle">
-          Me chama no WhatsApp e me diz seu objetivo. Eu te respondo com clareza e te oriento no melhor caminho.
+          Entre em contato para agendar sua consulta e entender o melhor caminho para o seu objetivo.
         </p>
 
-        <div class="contact-card" role="list" aria-label="Redes sociais">
+        <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
+          Falar com o Lucas no WhatsApp
+        </a>
+
+        <div class="contact-card">
           <a
             href="https://www.linkedin.com"
             class="socialContainer containerOne"
-            aria-label="LinkedIn do Lucas Souza"
+            aria-label="LinkedIn"
             target="_blank"
             rel="noopener noreferrer">
-            <i class="fab fa-linkedin-in socialSvg" aria-hidden="true"></i>
+            <i class="fab fa-linkedin-in socialSvg"></i>
           </a>
 
           <a
             href="https://www.instagram.com/lucasouza.nutri"
             class="socialContainer containerTwo"
-            aria-label="Instagram do Lucas Souza"
+            aria-label="Instagram"
             target="_blank"
             rel="noopener noreferrer">
-            <i class="fab fa-instagram socialSvg" aria-hidden="true"></i>
+            <i class="fab fa-instagram socialSvg"></i>
           </a>
 
           <a
             href="https://wa.me/5524998377369"
             class="socialContainer containerThree"
-            aria-label="WhatsApp do Lucas Souza"
+            aria-label="WhatsApp"
             target="_blank"
             rel="noopener noreferrer">
-            <i class="fab fa-whatsapp socialSvg" aria-hidden="true"></i>
+            <i class="fab fa-whatsapp socialSvg"></i>
           </a>
         </div>
       </div>
@@ -316,7 +244,7 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-logo">
-          <img src="assets/Foto de Perfil/Lucas-imagem-de-perfil.webp" alt="Lucas Souza" width="60" height="60" loading="lazy" decoding="async">
+          <img src="assets/Foto de Perfil/Lucas-imagem-de-perfil.webp" alt="Lucas Souza" width="60">
           <span>Lucas Souza</span>
         </div>
 
@@ -325,6 +253,7 @@
           <a href="#sobre">Sobre</a>
           <a href="#consultoria">Consultoria</a>
           <a href="#servicos">Serviços</a>
+          <a href="#o-que-ele-faz">O que faço</a>
           <a href="#contato">Contato</a>
         </div>
       </div>

@@ -1,16 +1,24 @@
-/*  VARIÁVEIS & RESET Checkpoint */
+/* =========================
+   VARIÁVEIS & RESET
+========================= */
 :root {
-  --primary: #FFA500;       /* Laranja (cor principal) */
-  --secondary: #FF2E2E;     /* Vermelho (destaques) */
-  --accent: #FFD700;        /* Dourado (elementos especiais) */
-  --dark: #1A1A1A;          /* Preto quase puro (textos) */
-  --light: #FFFFFF;         /* Branco puro (fundos) */
-  --gray: #333333;          /* Cinza escuro (textos secundários) */
-  --light-gray: #F5F5F5;    /* Cinza muito claro (fundos secundários) */
-  --transition: all 0.5s ease;
+  --primary: #FFA500;
+  --secondary: #FF2E2E;
+  --accent: #FFD700;
+  --dark: #0f0f0f;
+  --dark-alt: #121212;
+  --text: #ffffff;
+  --text-muted: #bdbdbd;
+  --border-soft: rgba(255, 255, 255, 0.08);
+  --transition: all 0.35s ease;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-pill: 999px;
 }
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,19 +26,60 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 100px; /* ou a altura do seu header + um respiro */
+  scroll-padding-top: 100px;
 }
 
 body {
-  background-color: #0f0f0f;
-  color: #fff;
+  background-color: var(--dark);
+  color: var(--text);
   font-family: 'Montserrat', sans-serif;
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible {
+  outline: 2px solid #FFA500;
+  outline-offset: 3px;
 }
 
 h1,
 h2,
 h3 {
   font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.skip-link {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 0.6rem 1rem;
+  background: #111;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+  z-index: 2000;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 /* Header Style checkpoint */
@@ -45,13 +94,16 @@ h3 {
   padding: 0.8rem 0; /* Espaçamento interno (vertical) */
 }
 
+.header-minimal.header-scrolled {
+  background-color: rgba(15, 15, 15, 0.96);
+  backdrop-filter: blur(6px);
+}
+
 .header-minimal .container {
   display: flex; /* Alinha logo e menu lado a lado */
   justify-content: space-between;  /* Um em cada lado */
   align-items: center; /* Centraliza verticalmente */
-  padding: 0 2rem; /* Espaçamento nas laterais */
-  max-width: 1200px; /* Largura máxima */
-  margin: 0 auto; /* Centraliza horizontalmente */
+  gap: 1.5rem;
 }
 
 .main-content {
@@ -89,6 +141,46 @@ h3 {
   color: #aaa;
   letter-spacing: 1px;
   margin: 0;
+}
+
+/* ================== BOTÃO MENU MOBILE ================== */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid rgba(255, 165, 0, 0.4);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.nav-toggle__line {
+  width: 22px;
+  height: 2px;
+  background: linear-gradient(to right, #FFA500, #FF2E2E);
+  border-radius: 999px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid #FFA500;
+  outline-offset: 3px;
+}
+
+.nav-toggle.is-active .nav-toggle__line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.is-active .nav-toggle__line:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.is-active .nav-toggle__line:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* ================== NAV PRINCIPAL ================== */
@@ -160,51 +252,58 @@ h3 {
   outline-offset: 3px;
 }
 
-/* ================== NAV MOBILE ================== */
-@media (max-width: 768px) {
-  .header-minimal .container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.85rem 1rem 1rem;
-    gap: 0.6rem;
-  }
-
-  /* Nav vira bloco abaixo do header */
-  .nav-minimal {
-    display: none;
-    width: 100%;
-  }
-
-  .nav-minimal.open {
-    display: block;
-    margin-top: 0.5rem;
-  }
-
-  .nav-minimal ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.85rem;
-  }
-
-  .nav-minimal .nav-link {
-    font-size: 0.95rem;
-    padding-block: 0.2rem;
-  }
-
-  .logo {
-    font-size: 1.3rem;
-  }
-
-  .tagline {
-    font-size: 0.7rem;
-  }
+/* ================== SEÇÕES ================== */
+.section-minimal {
+  padding: 80px 20px;
+  background-color: var(--dark);
+  color: var(--text);
 }
 
-/* === CHECKPOINT: SEÇÃO SOBRE / INFORMAÇÕES DO NUTRICIONISTA === */
-.section-minimal {
-  padding: 80px 20px; /* Espaçamento interno da seção */
-  background-color: #0f0f0f; /* Fundo escuro pro site ficar moderno */
-  color: #fff; /* Texto branco pra contraste */
+.section-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--primary);
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin: -1rem auto 2.5rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* ================== COMPONENTES ================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-whatsapp {
+  background: linear-gradient(135deg, #0f6d59, #1bc26b);
+  color: #fff;
+  box-shadow: 0 10px 26px rgba(27, 194, 107, 0.25);
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(27, 194, 107, 0.35);
+}
+
+.btn:focus-visible {
+  outline: 2px solid #FFA500;
+  outline-offset: 3px;
 }
 
 .consultoria-info {
@@ -243,6 +342,10 @@ h3 {
   font-weight: 600;
 }
 
+.consultoria-info .btn {
+  margin-top: 1rem;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -252,16 +355,6 @@ h3 {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* === CHECKPOINT: TÍTULO DA SEÇÃO (ex: SOBRE) === */
-.section-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: #FFA500;
 }
 
 /* === CHECKPOINT: GRID PRINCIPAL DA SEÇÃO SOBRE === */
@@ -325,11 +418,34 @@ h3 {
 
 /* === CHECKPOINT: TÍTULOS DENTRO DO CONTEÚDO (ex: CONSULTORIA) === */
 .about-content h3 {
-  font-family: 'poppins' sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 600;
   color: #ff5c57;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
+}
+
+.consultoria-steps {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  max-width: 720px;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.steps-list li {
+  background: #151515;
+  border: 1px solid rgba(255, 165, 0, 0.2);
+  padding: 0.85rem 1.2rem;
+  border-radius: 12px;
+  color: #e4e4e4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
 .skills-container {
@@ -338,7 +454,7 @@ h3 {
 }
 
 .skills-title {
-  font-family: 'poppins' sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin-bottom: 1.5rem;
   color: #ffa500;
   font-weight: 700;
@@ -408,23 +524,6 @@ h3 {
   }
 }
 
-/* === CHECKPOINT: Seção Serviços === */
-.section-minimal {
-  padding: 80px 20px;
-  background-color: #121212; /* Fundo escuro elegante */
-  color: #fff;
-}
-
-/* === CHECKPOINT: Título da Seção === */
-.section-title {
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  text-align: center;
-  color: #FFA500;
-  margin-bottom: 3rem;
-}
-
 /* === CHECKPOINT: Grade dos Cards de Serviço === */
 .services-grid {
   display: flex;
@@ -466,6 +565,34 @@ h3 {
   font-size: 1rem;
   color: #ccc;
   line-height: 1.6;
+}
+
+.service-list {
+  list-style: none;
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.6rem;
+  text-align: left;
+  color: #d7d7d7;
+}
+
+.service-list li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.service-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFA500, #FF2E2E);
+  box-shadow: 0 0 6px rgba(255, 165, 0, 0.4);
 }
 
 /* === CHECKPOINT: Responsivo para Mobile === */
@@ -510,6 +637,10 @@ h3 {
   max-width: 600px;
   color: #bbb;
   line-height: 1.6;
+}
+
+#contato .btn {
+  margin-bottom: 2.5rem;
 }
 
 /* Responsivo */
@@ -588,7 +719,7 @@ h3 {
 }
 
 .card .title {
-  font-family: 'poppins' sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
   margin: 0;
   color: #fff;
@@ -888,6 +1019,11 @@ h3 {
     align-items: center;
     padding: 0 1rem;
     gap: 0.75rem;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    margin-left: auto;
   }
 
   .logo-container {

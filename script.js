@@ -49,15 +49,57 @@
     toggleHeaderState();
   }
 
+   /* ========================
+     MENU MOBILE
+  ======================== */
+  function initMobileMenu() {
+    const toggleButton = document.querySelector('.nav-toggle');
+    const nav = document.getElementById('nav-principal');
+    if (!toggleButton || !nav) return;
+
+    const setMenuState = (isOpen) => {
+      nav.classList.toggle('open', isOpen);
+      toggleButton.classList.toggle('is-active', isOpen);
+      document.body.classList.toggle('body--menu-open', isOpen);
+      toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggleButton.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+    };
+
+    toggleButton.addEventListener('click', () => {
+      const isOpen = nav.classList.contains('open');
+      setMenuState(!isOpen);
+    });
+
+    nav.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.matches('a[href^="#"]')) {
+        setMenuState(false);
+      }
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setMenuState(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (!mobileMediaQuery.matches) {
+        setMenuState(false);
+      }
+    });
+  }
+
   /* ========================
      SCROLL SPY (nav-link ativo)
   ======================== */
   function initScrollSpy() {
-    const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+    const navLinks = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
     if (!navLinks.length) return;
 
-    const sectionIds = ['sobre', 'consultoria', 'servicos', 'o-que-ele-faz', 'contato'];
-    const sections = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+    const sections = navLinks
+      .map((link) => document.querySelector(link.getAttribute('href')))
+      .filter(Boolean);
     if (!sections.length) return;
 
     const setActiveLink = (id) => {
@@ -67,52 +109,32 @@
       });
     };
 
-    let ticking = false;
+    const intersectionRatios = new Map();
 
-    const updateActiveSection = () => {
-      if (ticking) return;
-      ticking = true;
-
-      window.requestAnimationFrame(() => {
-        const referenceY = window.innerHeight * 0.3;
-        let activeSection = sections[0];
-        let foundInView = false;
-        let lastPassed = null;
-        let lastPassedTop = -Infinity;
-        let upcoming = null;
-
-        sections.forEach((section) => {
-          const rect = section.getBoundingClientRect();
-          const inView = rect.top <= referenceY && rect.bottom >= referenceY;
-
-          if (inView && !foundInView) {
-            activeSection = section;
-            foundInView = true;
-            return;
-          }
-
-          if (!foundInView && rect.top <= referenceY && rect.top > lastPassedTop) {
-            lastPassedTop = rect.top;
-            lastPassed = section;
-          }
-
-          if (!foundInView && !upcoming && rect.top > referenceY) {
-            upcoming = section;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            intersectionRatios.set(entry.target, entry.intersectionRatio);
+          } else {
+            intersectionRatios.delete(entry.target);
           }
         });
 
-        if (!foundInView) {
-          activeSection = lastPassed || upcoming || sections[0];
+        if (!intersectionRatios.size) return;
+
+        const mostVisible = Array.from(intersectionRatios.entries()).sort((a, b) => b[1] - a[1])[0];
+        if (mostVisible && mostVisible[0]?.id) {
+          setActiveLink(mostVisible[0].id);
         }
+      },
+      {
+        threshold: [0.2, 0.4, 0.6],
+        rootMargin: '-30% 0px -50% 0px',
+      }
+    );
 
-        setActiveLink(activeSection.id);
-        ticking = false;
-      });
-    };
-
-    window.addEventListener('scroll', updateActiveSection, { passive: true });
-    window.addEventListener('resize', updateActiveSection);
-    updateActiveSection();
+    sections.forEach((section) => observer.observe(section));
   }
 
   /* ========================
@@ -187,6 +209,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initHeaderScrollState();
+    initMobileMenu();
     initScrollSpy();
     initSmoothScrollLinks();
     initCardsTilt();
