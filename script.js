@@ -1,267 +1,401 @@
-(function () {
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const mobileMediaQuery = window.matchMedia('(max-width: 768px)');
+(() => {
+  const state = {
+    prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)'),
+    mobileMediaQuery: window.matchMedia('(max-width: 768px)'),
+  };
 
-  /* ========================
-     SCROLL REVEAL
-  ======================== */
-  function initScrollReveal() {
-    const animatedElements = document.querySelectorAll('.animation-on-scroll');
-    if (!animatedElements.length) return;
-
-    const isMobile = mobileMediaQuery.matches;
-
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      animatedElements.forEach((el) => el.classList.add('visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: isMobile ? 0.08 : 0.15,
-        rootMargin: isMobile ? '0px 0px -10% 0px' : '0px 0px -5% 0px',
-      }
-    );
-
-    animatedElements.forEach((el) => observer.observe(el));
-  }
-
-  /* ========================
-     HEADER SCROLLED STATE
-  ======================== */
-  function initHeaderScrollState() {
-    const header = document.querySelector('.header-minimal');
-    if (!header) return;
-
-    const toggleHeaderState = () => {
-      header.classList.toggle('header-scrolled', window.scrollY > 10);
-    };
-
-    window.addEventListener('scroll', toggleHeaderState, { passive: true });
-    toggleHeaderState();
-  }
-
-  /* ========================
-     MENU MOBILE
-  ======================== */
-  function initMobileMenu() {
-    const toggleButton = document.querySelector('.nav-toggle');
-    const nav = document.getElementById('nav-principal');
-    if (!toggleButton || !nav) return;
-
-    const focusableSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
-    let lastFocusedElement = null;
-
-    const setMenuState = (isOpen) => {
-      nav.classList.toggle('open', isOpen);
-      toggleButton.classList.toggle('is-active', isOpen);
-      document.body.classList.toggle('body--menu-open', isOpen);
-      toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      toggleButton.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-      nav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-
-      if (isOpen) {
-        lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-        const firstFocusable = nav.querySelector(focusableSelector);
-        if (firstFocusable instanceof HTMLElement) {
-          firstFocusable.focus();
-        }
-      } else if (lastFocusedElement instanceof HTMLElement) {
-        lastFocusedElement.focus();
-      }
-    };
-
-    nav.setAttribute('aria-hidden', 'true');
-
-    toggleButton.addEventListener('click', () => {
-      const isOpen = nav.classList.contains('open');
-      setMenuState(!isOpen);
-    });
-
-    nav.addEventListener('click', (event) => {
-      const target = event.target;
-      if (target instanceof Element && target.matches('a[href^="#"]')) {
-        setMenuState(false);
-      }
-    });
-
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        setMenuState(false);
-      }
-
-      if (event.key !== 'Tab' || !nav.classList.contains('open')) return;
-
-      const focusableItems = Array.from(nav.querySelectorAll(focusableSelector));
-      if (!focusableItems.length) return;
-
-      const firstItem = focusableItems[0];
-      const lastItem = focusableItems[focusableItems.length - 1];
-
-      if (event.shiftKey && document.activeElement === firstItem) {
-        event.preventDefault();
-        lastItem.focus();
-      } else if (!event.shiftKey && document.activeElement === lastItem) {
-        event.preventDefault();
-        firstItem.focus();
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (!mobileMediaQuery.matches) {
-        setMenuState(false);
-      }
-    });
-  }
-
-  /* ========================
-     SCROLL SPY (nav-link ativo)
-  ======================== */
-  function initScrollSpy() {
-    const navLinks = Array.from(document.querySelectorAll('.nav-link[href^="#"]'));
-    if (!navLinks.length) return;
-
-    const sections = navLinks
-      .map((link) => document.querySelector(link.getAttribute('href')))
-      .filter(Boolean);
-    if (!sections.length) return;
-
-    const setActiveLink = (id) => {
-      navLinks.forEach((link) => {
-        const targetId = link.getAttribute('href')?.replace('#', '');
-        link.classList.toggle('active', targetId === id);
+  const utils = {
+    qs(selector, scope = document) {
+      return scope.querySelector(selector);
+    },
+    qsa(selector, scope = document) {
+      return Array.from(scope.querySelectorAll(selector));
+    },
+    isHTMLElement(value) {
+      return value instanceof HTMLElement;
+    },
+    getHeaderOffset() {
+      const header = utils.qs('.header-minimal');
+      return header ? header.offsetHeight : 0;
+    },
+    getFocusableElements(container) {
+      const selector = 'a, button, [tabindex]:not([tabindex="-1"])';
+      return utils.qsa(selector, container).filter((el) => !el.hasAttribute('disabled'));
+    },
+    supportsIntersectionObserver() {
+      return 'IntersectionObserver' in window;
+    },
+    scrollToTarget(target) {
+      const offset = utils.getHeaderOffset();
+      const top = target.getBoundingClientRect().top + window.scrollY - offset - 12;
+      window.scrollTo({
+        top,
+        behavior: state.prefersReducedMotion.matches ? 'auto' : 'smooth',
       });
-    };
+    },
+    createAbortController() {
+      return new AbortController();
+    },
+  };
 
-    const intersectionRatios = new Map();
+  const features = {
+    scrollReveal: {
+      observer: null,
+      init() {
+        const animatedElements = utils.qsa('.animation-on-scroll');
+        if (!animatedElements.length) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            intersectionRatios.set(entry.target, entry.intersectionRatio);
-          } else {
-            intersectionRatios.delete(entry.target);
+        if (state.prefersReducedMotion.matches || !utils.supportsIntersectionObserver()) {
+          animatedElements.forEach((el) => el.classList.add('visible'));
+          return;
+        }
+
+        const isMobile = state.mobileMediaQuery.matches;
+
+        this.observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                this.observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: isMobile ? 0.08 : 0.15,
+            rootMargin: isMobile ? '0px 0px -10% 0px' : '0px 0px -5% 0px',
           }
-        });
+        );
 
-        if (!intersectionRatios.size) return;
+        animatedElements.forEach((el) => this.observer.observe(el));
+      },
+      refresh() {
+        if (this.observer) {
+          this.observer.disconnect();
+          this.observer = null;
+        }
+        this.init();
+      },
+    },
 
-        const mostVisible = Array.from(intersectionRatios.entries()).sort((a, b) => b[1] - a[1])[0];
-        if (mostVisible && mostVisible[0]?.id) {
-          setActiveLink(mostVisible[0].id);
+    headerScrollState: {
+      controller: null,
+      init() {
+        const header = utils.qs('.header-minimal');
+        if (!header) return;
+
+        const controller = utils.createAbortController();
+        const toggleHeaderState = () => {
+          header.classList.toggle('header-scrolled', window.scrollY > 10);
+        };
+
+        window.addEventListener('scroll', toggleHeaderState, { passive: true, signal: controller.signal });
+        toggleHeaderState();
+        this.controller = controller;
+      },
+      destroy() {
+        if (this.controller) {
+          this.controller.abort();
+          this.controller = null;
         }
       },
-      {
-        threshold: [0.2, 0.4, 0.6],
-        rootMargin: '-30% 0px -50% 0px',
-      }
-    );
+    },
 
-    sections.forEach((section) => observer.observe(section));
-  }
+    mobileMenu: {
+      controller: null,
+      init() {
+        const toggleButton = utils.qs('.nav-toggle');
+        const nav = utils.qs('#nav-principal');
+        if (!toggleButton || !nav) return;
 
-  /* ========================
-     SMOOTH SCROLL
-  ======================== */
-  function initSmoothScrollLinks() {
-    const links = document.querySelectorAll('a.nav-link[href^="#"], footer a[href^="#"]');
-    if (!links.length) return;
+        const controller = utils.createAbortController();
+        let lastFocusedElement = null;
 
-    const scrollOptions = prefersReducedMotion ? {} : { behavior: 'smooth' };
+        const setMenuState = (isOpen) => {
+          nav.classList.toggle('open', isOpen);
+          toggleButton.classList.toggle('is-active', isOpen);
+          document.body.classList.toggle('body--menu-open', isOpen);
+          toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          toggleButton.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+          nav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
 
-    links.forEach((link) => {
-      link.addEventListener('click', (event) => {
-        const href = link.getAttribute('href');
-        if (!href || href === '#') return;
+          if (isOpen) {
+            lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+            const focusableItems = utils.getFocusableElements(nav);
+            if (focusableItems[0]) focusableItems[0].focus();
+          } else if (lastFocusedElement instanceof HTMLElement) {
+            lastFocusedElement.focus();
+          }
+        };
 
-        const target = document.querySelector(href);
-        if (!target) return;
+        nav.setAttribute('aria-hidden', 'true');
 
-        event.preventDefault();
-        target.scrollIntoView(scrollOptions);
-      });
-    });
-  }
+        toggleButton.addEventListener(
+          'click',
+          () => {
+            const isOpen = nav.classList.contains('open');
+            setMenuState(!isOpen);
+          },
+          { signal: controller.signal }
+        );
 
-  /* ========================
-     3D TILT NOS CARDS
-  ======================== */
-  function initCardsTilt() {
-    if (prefersReducedMotion || window.innerWidth <= 900) return;
+        nav.addEventListener(
+          'click',
+          (event) => {
+            const target = event.target;
+            if (target instanceof Element && target.matches('a[href^="#"]')) {
+              setMenuState(false);
+            }
+          },
+          { signal: controller.signal }
+        );
 
-    const cards = document.querySelectorAll('.what-i-do-animated .card');
-    if (!cards.length) return;
+        document.addEventListener(
+          'click',
+          (event) => {
+            if (!nav.classList.contains('open')) return;
+            if (nav.contains(event.target) || toggleButton.contains(event.target)) return;
+            setMenuState(false);
+          },
+          { signal: controller.signal }
+        );
 
-    const maxRotation = 8;
+        window.addEventListener(
+          'keydown',
+          (event) => {
+            if (event.key === 'Escape') {
+              setMenuState(false);
+              return;
+            }
 
-    cards.forEach((card) => {
-      const computed = window.getComputedStyle(card).getPropertyValue('transform');
-      const baseTransform = computed && computed !== 'none' ? computed : '';
-      let rafId = null;
-      let latestEvent = null;
+            if (event.key !== 'Tab' || !nav.classList.contains('open')) return;
 
-      const handleMove = (event) => {
-        latestEvent = event;
-        if (rafId) return;
+            const focusableItems = utils.getFocusableElements(nav);
+            if (!focusableItems.length) return;
 
-        rafId = window.requestAnimationFrame(() => {
-          if (!latestEvent) return;
-          const rect = card.getBoundingClientRect();
-          const x = latestEvent.clientX - rect.left;
-          const y = latestEvent.clientY - rect.top;
+            const firstItem = focusableItems[0];
+            const lastItem = focusableItems[focusableItems.length - 1];
 
-          const rotateY = ((x / rect.width - 0.5) * 2 * maxRotation).toFixed(2);
-          const rotateX = ((0.5 - y / rect.height) * 2 * maxRotation).toFixed(2);
+            if (event.shiftKey && document.activeElement === firstItem) {
+              event.preventDefault();
+              lastItem.focus();
+            } else if (!event.shiftKey && document.activeElement === lastItem) {
+              event.preventDefault();
+              firstItem.focus();
+            }
+          },
+          { signal: controller.signal }
+        );
 
-          const rotations = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-          card.style.transform = baseTransform
-            ? `${baseTransform} ${rotations}`
-            : rotations;
+        window.addEventListener(
+          'resize',
+          () => {
+            if (!state.mobileMediaQuery.matches) {
+              setMenuState(false);
+            }
+          },
+          { signal: controller.signal }
+        );
 
-          rafId = null;
-        });
-      };
-
-      card.addEventListener('mousemove', handleMove);
-
-      card.addEventListener('mouseleave', () => {
-        if (rafId) {
-          window.cancelAnimationFrame(rafId);
-          rafId = null;
+        this.controller = controller;
+      },
+      destroy() {
+        if (this.controller) {
+          this.controller.abort();
+          this.controller = null;
         }
-        latestEvent = null;
-        card.style.transform = baseTransform || 'rotateX(0deg) rotateY(0deg)';
+      },
+    },
+
+    scrollSpy: {
+      observer: null,
+      init() {
+        const navLinks = utils.qsa('.nav-link[href^="#"]');
+        if (!navLinks.length || !utils.supportsIntersectionObserver()) return;
+
+        const sections = navLinks
+          .map((link) => utils.qs(link.getAttribute('href')))
+          .filter(Boolean);
+
+        if (!sections.length) return;
+
+        const setActiveLink = (id) => {
+          navLinks.forEach((link) => {
+            const targetId = link.getAttribute('href')?.replace('#', '');
+            link.classList.toggle('active', targetId === id);
+          });
+        };
+
+        this.observer = new IntersectionObserver(
+          (entries) => {
+            let mostVisible = null;
+            let highestRatio = 0;
+
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio >= highestRatio) {
+                highestRatio = entry.intersectionRatio;
+                mostVisible = entry.target;
+              }
+            });
+
+            if (mostVisible?.id) {
+              setActiveLink(mostVisible.id);
+            }
+          },
+          {
+            threshold: [0.2, 0.4, 0.6],
+            rootMargin: '-30% 0px -50% 0px',
+          }
+        );
+
+        sections.forEach((section) => this.observer.observe(section));
+      },
+      refresh() {
+        if (this.observer) {
+          this.observer.disconnect();
+          this.observer = null;
+        }
+        this.init();
+      },
+    },
+
+    smoothScroll: {
+      controller: null,
+      init() {
+        const links = utils.qsa('a.nav-link[href^="#"], footer a[href^="#"]');
+        if (!links.length) return;
+
+        const controller = utils.createAbortController();
+
+        links.forEach((link) => {
+          link.addEventListener(
+            'click',
+            (event) => {
+              const href = link.getAttribute('href');
+              if (!href || href === '#') return;
+
+              const target = utils.qs(href);
+              if (!target) return;
+
+              event.preventDefault();
+              utils.scrollToTarget(target);
+            },
+            { signal: controller.signal }
+          );
+        });
+
+        this.controller = controller;
+      },
+      destroy() {
+        if (this.controller) {
+          this.controller.abort();
+          this.controller = null;
+        }
+      },
+    },
+
+    cardsTilt: {
+      controllers: [],
+      init() {
+        if (state.prefersReducedMotion.matches || window.innerWidth <= 900) return;
+
+        const cards = utils.qsa('.what-i-do-animated .card');
+        if (!cards.length) return;
+
+        const maxRotation = 8;
+
+        cards.forEach((card) => {
+          const controller = utils.createAbortController();
+          const computed = window.getComputedStyle(card).getPropertyValue('transform');
+          const baseTransform = computed && computed !== 'none' ? computed : '';
+          let rafId = null;
+          let rect = card.getBoundingClientRect();
+
+          const updateRect = () => {
+            rect = card.getBoundingClientRect();
+          };
+
+          const handleMove = (event) => {
+            if (rafId) return;
+
+            rafId = window.requestAnimationFrame(() => {
+              const x = event.clientX - rect.left;
+              const y = event.clientY - rect.top;
+
+              const rotateY = ((x / rect.width - 0.5) * 2 * maxRotation).toFixed(2);
+              const rotateX = ((0.5 - y / rect.height) * 2 * maxRotation).toFixed(2);
+
+              const rotations = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+              card.style.transform = baseTransform ? `${baseTransform} ${rotations}` : rotations;
+
+              rafId = null;
+            });
+          };
+
+          card.addEventListener('mouseenter', updateRect, { signal: controller.signal });
+          card.addEventListener('mousemove', handleMove, { signal: controller.signal });
+          window.addEventListener('resize', updateRect, { signal: controller.signal });
+
+          card.addEventListener(
+            'mouseleave',
+            () => {
+              if (rafId) {
+                window.cancelAnimationFrame(rafId);
+                rafId = null;
+              }
+              card.style.transform = baseTransform || 'rotateX(0deg) rotateY(0deg)';
+            },
+            { signal: controller.signal }
+          );
+
+          this.controllers.push(controller);
+        });
+      },
+      destroy() {
+        this.controllers.forEach((controller) => controller.abort());
+        this.controllers = [];
+      },
+      refresh() {
+        this.destroy();
+        this.init();
+      },
+    },
+
+    footerYear: {
+      init() {
+        const yearEl = utils.qs('#year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+      },
+    },
+  };
+
+  const mediaListeners = {
+    init() {
+      state.prefersReducedMotion.addEventListener('change', () => {
+        features.scrollReveal.refresh();
+        features.cardsTilt.refresh();
       });
-    });
-  }
 
-  /* ========================
-     FOOTER YEAR
-  ======================== */
-  function initFooterYear() {
-    const yearEl = document.getElementById('year');
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-  }
+      state.mobileMediaQuery.addEventListener('change', () => {
+        features.scrollReveal.refresh();
+      });
+    },
+  };
 
-  /* ========================
-     DOM READY
-  ======================== */
+  const app = {
+    init() {
+      features.scrollReveal.init();
+      features.headerScrollState.init();
+      features.mobileMenu.init();
+      features.scrollSpy.init();
+      features.smoothScroll.init();
+      features.cardsTilt.init();
+      features.footerYear.init();
+      mediaListeners.init();
+    },
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
-    initScrollReveal();
-    initHeaderScrollState();
-    initMobileMenu();
-    initScrollSpy();
-    initSmoothScrollLinks();
-    initCardsTilt();
-    initFooterYear();
+    app.init();
   });
 })();
