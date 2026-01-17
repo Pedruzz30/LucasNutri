@@ -1,6 +1,4 @@
-/* =========================
-   VARIÁVEIS & RESET
-========================= */
+/* === CHECKPOINT: BASE === */
 :root {
   --primary: #FFA500;
   --secondary: #FF2E2E;
@@ -84,7 +82,7 @@ h3 {
   transform: translateY(0);
 }
 
-/* Header Style checkpoint */
+/* === CHECKPOINT: HEADER === */
 .header-minimal {
   position: fixed;
   top: 0;
@@ -92,7 +90,7 @@ h3 {
   background-color: #0f0f0f;
   color: white;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   padding: 0.8rem 0;
 }
 
@@ -144,7 +142,6 @@ h3 {
   margin: 0;
 }
 
-/* ================== BOTÃO MENU MOBILE ================== */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -184,7 +181,6 @@ h3 {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* ================== NAV PRINCIPAL ================== */
 .nav-minimal {
   display: block;
 }
@@ -209,9 +205,7 @@ h3 {
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding-block: 0.15rem;
-  transition:
-    color 0.22s ease-out,
-    transform 0.22s ease-out;
+  transition: color 0.22s ease-out, transform 0.22s ease-out;
 }
 
 .nav-minimal .nav-link::after {
@@ -243,7 +237,7 @@ h3 {
   outline-offset: 3px;
 }
 
-/* ================== SEÇÕES ================== */
+/* === CHECKPOINT: SEÇÕES === */
 .section-minimal {
   padding: 80px 20px;
   background-color: var(--dark);
@@ -271,7 +265,7 @@ h3 {
   text-align: center;
 }
 
-/* ================== HERO ================== */
+/* === CHECKPOINT: HERO === */
 .hero {
   padding: 100px 0 80px;
   background: radial-gradient(circle at top, rgba(255, 165, 0, 0.08), transparent 55%),
@@ -375,34 +369,26 @@ h3 {
   font-size: 0.98rem;
 }
 
-/* ================== COMPONENTES ================== */
+/* === CHECKPOINT: BOTÕES === */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-
   padding: 0.9rem 1.7rem;
   border-radius: var(--radius-pill);
-
   font-weight: 600;
   text-decoration: none;
   line-height: 1;
   white-space: nowrap;
-
   background: transparent;
   color: var(--text);
-
   border: 1px solid transparent;
-
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-
-  /* estabilidade + sensação de “botão físico” */
   transform: translateZ(0);
   backface-visibility: hidden;
-
   transition:
     transform 0.22s cubic-bezier(.2,.9,.2,1),
     box-shadow 0.25s ease,
@@ -411,20 +397,14 @@ h3 {
     filter 0.25s ease;
 }
 
-/* ================== OUTLINE ================== */
 .btn-outline {
   position: relative;
   isolation: isolate;
-
   color: var(--primary);
   border-color: color-mix(in srgb, var(--primary) 70%, transparent);
-
-  /* micro contraste interno (bem sutil, fica “premium”) */
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-/* brilho suave no hover (não muda a vibe) */
 .btn-outline::before {
   content: "";
   position: absolute;
@@ -444,9 +424,7 @@ h3 {
 .btn-outline:hover {
   transform: translateY(-2px);
   filter: brightness(1.03);
-
   border-color: color-mix(in srgb, var(--primary) 92%, transparent);
-
   box-shadow:
     0 14px 32px rgba(255, 165, 0, 0.22),
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -459,13 +437,11 @@ h3 {
 .btn-outline:active {
   transform: translateY(-1px);
   filter: brightness(0.98);
-
   box-shadow:
     0 10px 22px rgba(255, 165, 0, 0.18),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* ================== FOCUS ================== */
 .btn:focus-visible {
   outline: none;
   box-shadow:
@@ -473,59 +449,42 @@ h3 {
     0 12px 26px rgba(0, 0, 0, 0.25);
 }
 
-/* opcional: melhora muito em mobile */
-@media (prefers-reduced-motion: reduce) {
-  .btn { transition: none; }
-  .btn:hover, .btn:active { transform: none; }
-}
-
-/* ================== WHATSAPP ================== */
 .btn-whatsapp {
   --w1: #0b5a48;
   --w2: #1fe27a;
-
   --border: rgba(255, 255, 255, 0.18);
   --border-strong: rgba(255, 255, 255, 0.34);
   --glow: rgba(31, 226, 122, 0.45);
-
   position: relative;
-  isolation: isolate; /* impede blending estranho */
-  border: 0;          /* tira a borda real pra não serrilhar */
+  isolation: isolate;
+  border: 0;
   border-radius: 16px;
-
   color: #fff;
   font-family: 'Poppins', sans-serif;
   letter-spacing: 0.2px;
-
   background:
     radial-gradient(120% 140% at 20% 10%, rgba(255,255,255,0.18), transparent 55%),
     linear-gradient(135deg, var(--w1), var(--w2));
-
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.14),
     inset 0 0 14px rgba(255,255,255,0.06),
     0 10px 25px rgba(31, 226, 122, 0.22);
-
-  transform: translateZ(0);         /* estabiliza */
-  backface-visibility: hidden;     /* evita tremido */
+  transform: translateZ(0);
+  backface-visibility: hidden;
   will-change: transform;
-
   transition:
     transform 0.22s cubic-bezier(.2,.9,.2,1),
     box-shadow 0.25s ease,
     filter 0.25s ease;
 }
 
-/* Borda premium (estável) */
 .btn-whatsapp::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px; /* espessura da borda */
+  padding: 1px;
   background: linear-gradient(180deg, var(--border-strong), var(--border));
-
-  /* “recorta” o centro pra virar só borda */
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -534,12 +493,10 @@ h3 {
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   mask-composite: exclude;
-
   pointer-events: none;
   z-index: 1;
 }
 
-/* Glow externo */
 .btn-whatsapp::after {
   content: "";
   position: absolute;
@@ -554,7 +511,7 @@ h3 {
 }
 
 .btn-whatsapp:hover {
-  transform: translateY(-2px) scale(1.01); /* scale menor = menos serrilhado */
+  transform: translateY(-2px) scale(1.01);
   filter: brightness(1.06) saturate(1.05);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.16),
@@ -584,106 +541,7 @@ h3 {
     0 0 0 4px rgba(31, 226, 122, 0.32);
 }
 
-
-.consultoria-info {
-  background: linear-gradient(145deg, #1a1a1a, #121212);
-  padding: 2rem 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 165, 0, 0.3);
-  color: #eaeaea;
-  line-height: 1.8;
-  font-size: 1.05rem;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-  animation: fadeInUp 0.8s ease-out both;
-}
-
-.consultoria-info:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(255, 165, 0, 0.15);
-}
-
-.consultoria-info h3 {
-   font-family: 'Poppins', sans-serif;
-  font-size: 1.5rem;
-  margin-bottom: 1.2rem;
-  color: #ffa500;
-  font-weight: 600;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
-}
-
-.consultoria-info p {
-  margin-bottom: 1rem;
-}
-
-.consultoria-info strong {
-  color: #ffae42;
-  font-weight: 600;
-}
-
-.consultoria-info .btn {
-  margin-top: 1rem;
-}
-
-.consultoria-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  align-items: start;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* === CHECKPOINT: CONTEÚDO DE TEXTO DO LADO DA FOTO === */
-.about-content {
-  flex: 1;
-  width: 100%;
-  max-width: 780px;              /* limite de largura do texto */
-  min-width: 280px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.05rem;
-  line-height: 1.9;
-  color: #f2f2f2;
-
-  background: linear-gradient(145deg, #1a1a1a, #121212);
-  padding: 2rem;
-  border-radius: 16px;
-
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
-
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-
-.about-content:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(255, 165, 0, 0.15); /* luz suave ao passar o mouse */
-}
-
-/* === CHECKPOINT: TÍTULOS DENTRO DO CONTEÚDO (ex: CONSULTORIA) === */
-.about-content h3 {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  color: #ff5c57;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* === SOBRE MIM REDESIGN === */
+/* === CHECKPOINT: SOBRE === */
 .about-layout {
   display: grid;
   grid-template-columns: minmax(260px, 420px) minmax(0, 1fr);
@@ -825,6 +683,54 @@ h3 {
   font-size: 0.9rem;
 }
 
+/* === CHECKPOINT: CONSULTORIA === */
+.consultoria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.consultoria-info {
+  background: linear-gradient(145deg, #1a1a1a, #121212);
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 165, 0, 0.3);
+  color: #eaeaea;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+.consultoria-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(255, 165, 0, 0.15);
+}
+
+.consultoria-info h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+  color: #ffa500;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.consultoria-info p {
+  margin-bottom: 1rem;
+}
+
+.consultoria-info strong {
+  color: #ffae42;
+  font-weight: 600;
+}
+
+.consultoria-info .btn {
+  margin-top: 1rem;
+}
+
 .consultoria-steps {
   margin-top: 2.5rem;
   text-align: center;
@@ -897,30 +803,7 @@ h3 {
   transform: scale(1.05);
 }
 
-@keyframes fadeInSkill {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .about-grid {
-    /* já é column, então só garante alinhamento */
-    align-items: center;
-    text-align: center;
-  }
-
-  .about-content {
-    text-align: left; /* se quiser manter o texto alinhado à esquerda */
-  }
-}
-
-/* === CHECKPOINT: Grade dos Cards de Serviço === */
+/* === CHECKPOINT: SERVIÇOS === */
 .services-grid {
   display: flex;
   flex-wrap: wrap;
@@ -928,7 +811,6 @@ h3 {
   justify-content: center;
 }
 
-/* === CHECKPOINT: Estilo dos Cards Individuais === */
 .service-item {
   background-color: #1a1a1a;
   border: 1px solid #333;
@@ -941,13 +823,11 @@ h3 {
   text-align: center;
 }
 
-/* === CHECKPOINT: Animação ao Passar o Mouse === */
-.service-item:hover {
+service-item:hover {
   transform: translateY(-8px);
   box-shadow: 0 0 30px rgba(255, 165, 0, 0.4);
 }
 
-/* === CHECKPOINT: Título do Serviço === */
 .service-item h3 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.5rem;
@@ -955,7 +835,6 @@ h3 {
   margin-bottom: 1rem;
 }
 
-/* === CHECKPOINT: Texto do Serviço === */
 .service-item p {
   font-family: 'Montserrat', sans-serif;
   font-size: 1rem;
@@ -991,102 +870,7 @@ h3 {
   box-shadow: 0 0 6px rgba(255, 165, 0, 0.4);
 }
 
-/* === CHECKPOINT: Responsivo para Mobile === */
-@media (max-width: 768px) {
-  .services-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .service-item {
-    width: 90%;
-  }
-}
-
-/* === CHECKPOINT: Seção Contato === */
-#contato.section-minimal {
-  background: #111;
-  padding: 90px 20px;
-  color: #fff;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Linha decorativa suave no topo */
-#contato.section-minimal::before {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 140px;
-  height: 3px;
-  background: linear-gradient(to right, #f7ba2b, #ea5358);
-  border-radius: 4px;
-  opacity: 0.9;
-}
-
-/* Texto abaixo do título */
-#contato .section-subtitle {
-  margin: -1rem auto 3rem;
-  font-size: 1.05rem;
-  max-width: 600px;
-  color: #bbb;
-  line-height: 1.6;
-}
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-}
-
-.contact-highlight {
-  background: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  padding: 1.5rem;
-  text-align: left;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
-}
-
-.contact-highlight h3 {
-  color: #ffa500;
-  font-size: 1.1rem;
-  margin-bottom: 0.6rem;
-}
-
-.contact-highlight p {
-  color: #cfcfcf;
-  font-size: 0.95rem;
-}
-
-.contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 2.5rem;
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-  #contato.section-minimal {
-    padding: 70px 16px;
-  }
-
-  #contato .section-subtitle {
-    font-size: 0.95rem;
-    max-width: 90%;
-  }
-
-  .contact-highlight {
-    text-align: center;
-  }
-}
-
-/* === PLANOS === */
+/* === CHECKPOINT: PLANOS === */
 .plans-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1152,64 +936,7 @@ h3 {
   font-weight: 600;
 }
 
-/* === DEPOIMENTOS === */
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
-}
-
-.testimonial-card {
-  background: #141414;
-  border-radius: 18px;
-  padding: 1.6rem;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
-  color: #dcdcdc;
-  font-style: italic;
-}
-
-.testimonial-card span {
-  display: block;
-  margin-top: 1rem;
-  color: #ffa500;
-  font-style: normal;
-  font-weight: 600;
-}
-
-/* === FAQ === */
-.faq-grid {
-  display: grid;
-  gap: 1rem;
-  max-width: 760px;
-  margin: 0 auto;
-}
-
-.faq-item {
-  background: #141414;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 1rem 1.2rem;
-}
-
-.faq-item summary {
-  cursor: pointer;
-  font-weight: 600;
-  color: #ffa500;
-  list-style: none;
-}
-
-.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
-.faq-item p {
-  color: #d2d2d2;
-  margin-top: 0.8rem;
-}
-
-
-/* === CHECKPOINT: Layout da Seção Animada === */
+/* === CHECKPOINT: O QUE EU FAÇO === */
 .what-i-do-animated {
   display: flex;
   justify-content: center;
@@ -1219,18 +946,6 @@ h3 {
   background-color: #121212;
 }
 
-/* === CHECKPOINT: Layout da Seção Animada === */
-.what-i-do-animated {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  padding: 4rem 1rem;
-  background-color: #121212;
-}
-
-
-/* === Card com gradiente e glow === */
 .card {
   --background: linear-gradient(to left, #f7ba2b 0%, #ea5358 100%);
   width: 300px;
@@ -1295,7 +1010,6 @@ h3 {
   line-height: 1.5;
 }
 
-/* Hover */
 .card:hover::after {
   opacity: 0;
 }
@@ -1309,51 +1023,128 @@ h3 {
   color: #f7ba2b;
 }
 
-/* ========== MOBILE — seção "O que posso fazer por você" ========== */
-@media (max-width: 768px) {
-  .what-i-do-animated {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 2.5rem 1rem 3rem;
-    background-color: #121212; /* se quiser pode até tirar e deixar transparente */
-  }
-
-  .card {
-    width: 100%;
-    max-width: 360px;
-    min-height: auto;          /* deixa a altura se ajustar ao conteúdo */
-    padding: 3px;              /* menos borda de gradiente */
-    border-radius: 0.9rem;
-  }
-
-  .card::after {
-    top: 18px;
-    transform: scale(0.85);
-    filter: blur(18px);        /* glow mais contido */
-  }
-
-  .card-info {
-    padding: 1.6rem 1.3rem;
-    gap: 0.75rem;
-  }
-
-  .card i {
-    font-size: 2.1rem;
-  }
-
-  .card .title {
-    font-size: 1.25rem;
-  }
-
-  .card p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
+/* === CHECKPOINT: DEPOIMENTOS === */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
+.testimonial-card {
+  background: #141414;
+  border-radius: 18px;
+  padding: 1.6rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+  color: #dcdcdc;
+  font-style: italic;
+}
 
-/* === Contact Icons (refinado) === */
+.testimonial-card span {
+  display: block;
+  margin-top: 1rem;
+  color: #ffa500;
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* === CHECKPOINT: FAQ === */
+.faq-grid {
+  display: grid;
+  gap: 1rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-item {
+  background: #141414;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.2rem;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #ffa500;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item p {
+  color: #d2d2d2;
+  margin-top: 0.8rem;
+}
+
+/* === CHECKPOINT: CONTATO === */
+#contato.section-minimal {
+  background: #111;
+  padding: 90px 20px;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#contato.section-minimal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 3px;
+  background: linear-gradient(to right, #f7ba2b, #ea5358);
+  border-radius: 4px;
+  opacity: 0.9;
+}
+
+#contato .section-subtitle {
+  margin: -1rem auto 3rem;
+  font-size: 1.05rem;
+  max-width: 600px;
+  color: #bbb;
+  line-height: 1.6;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.contact-highlight {
+  background: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: left;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.contact-highlight h3 {
+  color: #ffa500;
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+
+.contact-highlight p {
+  color: #cfcfcf;
+  font-size: 0.95rem;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
 .contact-card {
   width: fit-content;
   height: fit-content;
@@ -1368,7 +1159,6 @@ h3 {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
-/* Bolinhas sociais */
 .socialContainer {
   width: 60px;
   height: 60px;
@@ -1382,15 +1172,12 @@ h3 {
   color: #fff;
   text-decoration: none;
   cursor: pointer;
-
-  /* animação mais curta e suave */
   transition:
     transform 0.22s ease-out,
     box-shadow 0.22s ease-out,
     background-color 0.22s ease-out;
 }
 
-/* Glow de fundo */
 .socialContainer::before {
   content: '';
   position: absolute;
@@ -1404,13 +1191,11 @@ h3 {
     opacity 0.26s ease-out;
 }
 
-/* Cores por rede */
-.containerOne::before { background-color: #0072b1; }  /* LinkedIn */
-.containerTwo::before { background-color: #d62976; }  /* Instagram */
-.containerThree::before { background-color: #128C7E; }/* WhatsApp */
-.containerFour::before { background-color: #f44336; } /* Email */
+.containerOne::before { background-color: #0072b1; }
+.containerTwo::before { background-color: #d62976; }
+.containerThree::before { background-color: #128C7E; }
+.containerFour::before { background-color: #f44336; }
 
-/* Hover geral */
 .socialContainer:hover {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6);
@@ -1421,13 +1206,11 @@ h3 {
   opacity: 1;
 }
 
-/* Clique */
 .socialContainer:active {
   transform: translateY(-1px) scale(0.96);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Ícone dentro */
 .socialSvg {
   font-size: 20px;
   color: #fff;
@@ -1438,20 +1221,17 @@ h3 {
     opacity 0.22s ease-out;
 }
 
-/* Em vez de keyframe doidão, só um popzinho leve */
 .socialContainer:hover .socialSvg {
   transform: translateY(-2px);
 }
 
-/* Acessibilidade: foco no teclado */
 .socialContainer:focus-visible {
   outline: 2px solid #ffa500;
   outline-offset: 3px;
   box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.4);
 }
 
-
-/* === FOOTER COMPACTO E MODERNO === */
+/* === CHECKPOINT: FOOTER === */
 .footer-minimal {
   background-color: #111;
   color: #ccc;
@@ -1462,7 +1242,6 @@ h3 {
   border-image-slice: 1;
 }
 
-/* === Layout flexível e direto ao ponto === */
 .footer-content {
   display: flex;
   flex-wrap: wrap;
@@ -1472,7 +1251,6 @@ h3 {
   margin: 0 auto 1.5rem;
 }
 
-/* === Logo e nome direto === */
 .footer-logo {
   display: flex;
   align-items: center;
@@ -1491,7 +1269,6 @@ h3 {
   box-shadow: 0 0 6px rgba(255, 165, 0, 0.2);
 }
 
-/* === Links organizados com menor espaço === */
 .footer-links h4 {
   font-size: 1rem;
   margin-bottom: 0.8rem;
@@ -1511,7 +1288,6 @@ h3 {
   color: #FFA500;
 }
 
-/* === Créditos finais reduzidos === */
 .footer-copyright {
   text-align: center;
   font-size: 0.8rem;
@@ -1520,20 +1296,7 @@ h3 {
   border-top: 1px solid #1c1c1c;
 }
 
-/* === Ajuste para telas menores === */
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-logo {
-    justify-content: center;
-  }
-}
-
-/* Scroll animation */
+/* === CHECKPOINT: ANIMAÇÕES === */
 .animation-on-scroll {
   opacity: 0;
   transform: translateY(20px);
@@ -1541,11 +1304,39 @@ h3 {
 }
 
 .animation-on-scroll.visible {
-  opacity:1;
+  opacity: 1;
   transform: translateY(0);
 }
 
-/* ================== AJUSTES MOBILE GERAIS ================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSkill {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === CHECKPOINT: RESPONSIVO === */
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover,
+  .btn:active { transform: none; }
+}
+
 @media (max-width: 768px) {
   body {
     font-size: 0.98rem;
@@ -1657,24 +1448,6 @@ h3 {
     padding: 1.5rem;
   }
 
-  .about-grid {
-    gap: 1.75rem;
-  }
-
-  .about-content {
-    padding: 1.35rem 1.1rem;
-    font-size: 0.98rem;
-    line-height: 1.7;
-    gap: 1rem;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
-  }
-
-  .about-content h3 {
-    margin-top: 0.75rem;
-    margin-bottom: 0.75rem;
-    font-size: 1.05rem;
-  }
-
   .about-layout {
     grid-template-columns: 1fr;
     text-align: center;
@@ -1727,11 +1500,13 @@ h3 {
   }
 
   .services-grid {
+    flex-direction: column;
+    align-items: center;
     gap: 1.25rem;
   }
 
   .service-item {
-    width: 100%;
+    width: 90%;
     max-width: 360px;
     padding: 1.35rem;
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
@@ -1746,41 +1521,55 @@ h3 {
   }
 
   .what-i-do-animated {
-    gap: 1.1rem;
-    padding: 2rem 0.75rem 2.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2.5rem 1rem 3rem;
   }
 
   .card {
-    max-width: 340px;
-    padding: 2px;
-    border-radius: 0.85rem;
+    width: 100%;
+    max-width: 360px;
+    min-height: auto;
+    padding: 3px;
+    border-radius: 0.9rem;
   }
 
   .card::after {
-    top: 14px;
-    filter: blur(14px);
-    opacity: 0.65;
+    top: 18px;
+    transform: scale(0.85);
+    filter: blur(18px);
   }
 
   .card-info {
-    padding: 1.4rem 1.1rem;
-    gap: 0.65rem;
+    padding: 1.6rem 1.3rem;
+    gap: 0.75rem;
   }
 
   .card i {
-    font-size: 1.9rem;
+    font-size: 2.1rem;
   }
 
   .card .title {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
   }
 
   .card p {
-    font-size: 0.88rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
   #contato.section-minimal {
-    padding: 70px 14px;
+    padding: 70px 16px;
+  }
+
+  #contato .section-subtitle {
+    font-size: 0.95rem;
+    max-width: 90%;
+  }
+
+  .contact-highlight {
+    text-align: center;
   }
 
   .contact-card {
@@ -1799,7 +1588,14 @@ h3 {
   }
 
   .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: 1.4rem;
+  }
+
+  .footer-logo {
+    justify-content: center;
   }
 
   .footer-logo span {
@@ -1814,4 +1610,6 @@ h3 {
     font-size: 0.88rem;
   }
 }
+
+
 
