@@ -879,19 +879,20 @@ service-item:hover {
 }
 
 .plan-card {
-  background: var(--surface);
-  border-radius: 18px;
+  background: linear-gradient(160deg, #1a1a1a 0%, #121212 100%);
+  border-radius: 24px;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 165, 0, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
   display: grid;
-  gap: 1rem;
-  position: relative;
+  gap: 1.5rem;
+  text-align: center;
 }
 
 .plan-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 0.4rem;
   color: #ffa500;
-  font-size: 1.3rem;
 }
 
 .plan-card ul {
