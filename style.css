@@ -1316,6 +1316,13 @@ service-item:hover {
   color: #FFA500;
 }
 
+.footer-contact-card {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
 .footer-copyright {
   text-align: center;
   font-size: 0.8rem;
@@ -1636,6 +1643,10 @@ service-item:hover {
 
   .footer-links a {
     font-size: 0.88rem;
+  }
+
+.footer-contact-card {
+    justify-content: center;
   }
 }
 
