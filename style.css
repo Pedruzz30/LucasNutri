@@ -1118,7 +1118,6 @@ service-item:hover {
 }
 
 #contato.section-minimal::before {
-  content: '';
   position: absolute;
   top: 0;
   left: 50%;
@@ -1415,6 +1414,23 @@ service-item:hover {
   padding-top: 1rem;
   border-top: 1px solid #1c1c1c;
 }
+
+#ig-typing {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+#ig-typing::after {
+  content: "|";
+  margin-left: 6px;
+  animation: blink 0.8s infinite;
+  opacity: 1;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
 
 /* === CHECKPOINT: ANIMAÇÕES === */
 .animation-on-scroll {
@@ -1734,6 +1750,3 @@ service-item:hover {
     justify-content: center;
   }
 }
-
-
-

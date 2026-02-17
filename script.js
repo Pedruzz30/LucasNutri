@@ -399,3 +399,29 @@
     app.init();
   });
 })();
+
+
+(function typeInstagram() {
+  const el = document.querySelector("#ig-typing");
+  if (!el) return;
+
+  const fullText = el.textContent.trim();
+  el.textContent = "";
+
+  let i = 0;
+  const speed = 70; // ms por letra (ajusta aqui)
+
+  function tick() {
+    el.textContent += fullText[i];
+    i++;
+
+    if (i < fullText.length) {
+      setTimeout(tick, speed);
+    } else {
+      // opcional: para de piscar o cursor quando terminar
+      // el.classList.add("done");
+    }
+  }
+
+  tick();
+})();
