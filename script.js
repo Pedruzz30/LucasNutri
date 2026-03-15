@@ -39,6 +39,123 @@
   };
 
   const features = {
+    floatingWhatsApp: {
+      controller: null,
+      init() {
+        const btn = utils.qs('.whatsapp-float');
+        if (!btn) return;
+
+        const controller = utils.createAbortController();
+        const toggle = () => {
+          btn.classList.toggle('visible', window.scrollY > 200);
+        };
+
+        window.addEventListener('scroll', toggle, { passive: true, signal: controller.signal });
+        toggle();
+        this.controller = controller;
+      },
+      destroy() {
+        if (this.controller) {
+          this.controller.abort();
+          this.controller = null;
+        }
+      },
+    },
+
+    animatedCounter: {
+      observer: null,
+      init() {
+        const counters = utils.qsa('[data-target]');
+        if (!counters.length) return;
+
+        if (state.prefersReducedMotion.matches || !utils.supportsIntersectionObserver()) {
+          counters.forEach((el) => {
+            const prefix = el.dataset.prefix || '';
+            const suffix = el.dataset.suffix || '';
+            el.textContent = prefix + el.dataset.target + suffix;
+          });
+          return;
+        }
+
+        this.observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target;
+              const target = parseInt(el.dataset.target, 10);
+              const prefix = el.dataset.prefix || '';
+              const suffix = el.dataset.suffix || '';
+              const duration = 1500;
+              const start = performance.now();
+
+              const step = (now) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(eased * target);
+                el.textContent = prefix + current + suffix;
+                if (progress < 1) requestAnimationFrame(step);
+              };
+
+              requestAnimationFrame(step);
+              this.observer.unobserve(el);
+            });
+          },
+          { threshold: 0.5 }
+        );
+
+        counters.forEach((el) => this.observer.observe(el));
+      },
+    },
+
+    staggerReveal: {
+      observer: null,
+      init() {
+        const containers = utils.qsa('[data-stagger]');
+        if (!containers.length || !utils.supportsIntersectionObserver()) return;
+
+        if (state.prefersReducedMotion.matches) {
+          containers.forEach((container) => {
+            utils.qsa('.stagger-item', container).forEach((el) => el.classList.add('visible'));
+          });
+          return;
+        }
+
+        this.observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              utils.qsa('.stagger-item', entry.target).forEach((el) => el.classList.add('visible'));
+              this.observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.08 }
+        );
+
+        containers.forEach((container) => this.observer.observe(container));
+      },
+    },
+
+    cookieBanner: {
+      init() {
+        if (localStorage.getItem('cookiesAccepted')) return;
+
+        const banner = utils.qs('#cookie-banner');
+        if (!banner) return;
+
+        setTimeout(() => banner.classList.add('show'), 1800);
+
+        const btn = utils.qs('#cookie-accept');
+        if (!btn) return;
+
+        btn.addEventListener('click', () => {
+          localStorage.setItem('cookiesAccepted', '1');
+          banner.classList.remove('show');
+          setTimeout(() => banner.remove(), 450);
+        });
+      },
+    },
+
     scrollReveal: {
       observer: null,
       init() {
@@ -339,6 +456,10 @@
 
   const app = {
     init() {
+      features.floatingWhatsApp.init();
+      features.animatedCounter.init();
+      features.staggerReveal.init();
+      features.cookieBanner.init();
       features.scrollReveal.init();
       features.headerScrollState.init();
       features.mobileMenu.init();
