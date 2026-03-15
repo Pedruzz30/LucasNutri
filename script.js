@@ -294,77 +294,33 @@
       },
     },
 
-    cardsTilt: {
-      controllers: [],
-      init() {
-        if (state.prefersReducedMotion.matches || window.innerWidth <= 900) return;
-
-        const cards = utils.qsa('.what-i-do-animated .card');
-        if (!cards.length) return;
-
-        const maxRotation = 8;
-
-        cards.forEach((card) => {
-          const controller = utils.createAbortController();
-          const computed = window.getComputedStyle(card).getPropertyValue('transform');
-          const baseTransform = computed && computed !== 'none' ? computed : '';
-          let rafId = null;
-          let rect = card.getBoundingClientRect();
-
-          const updateRect = () => {
-            rect = card.getBoundingClientRect();
-          };
-
-          const handleMove = (event) => {
-            if (rafId) return;
-
-            rafId = window.requestAnimationFrame(() => {
-              const x = event.clientX - rect.left;
-              const y = event.clientY - rect.top;
-
-              const rotateY = ((x / rect.width - 0.5) * 2 * maxRotation).toFixed(2);
-              const rotateX = ((0.5 - y / rect.height) * 2 * maxRotation).toFixed(2);
-
-              const rotations = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-              card.style.transform = baseTransform ? `${baseTransform} ${rotations}` : rotations;
-
-              rafId = null;
-            });
-          };
-
-          card.addEventListener('mouseenter', updateRect, { signal: controller.signal });
-          card.addEventListener('mousemove', handleMove, { signal: controller.signal });
-          window.addEventListener('resize', updateRect, { signal: controller.signal });
-
-          card.addEventListener(
-            'mouseleave',
-            () => {
-              if (rafId) {
-                window.cancelAnimationFrame(rafId);
-                rafId = null;
-              }
-              card.style.transform = baseTransform || 'rotateX(0deg) rotateY(0deg)';
-            },
-            { signal: controller.signal }
-          );
-
-          this.controllers.push(controller);
-        });
-      },
-      destroy() {
-        this.controllers.forEach((controller) => controller.abort());
-        this.controllers = [];
-      },
-      refresh() {
-        this.destroy();
-        this.init();
-      },
-    },
-
     footerYear: {
       init() {
         const yearEl = utils.qs('#year');
         if (yearEl) yearEl.textContent = new Date().getFullYear();
+      },
+    },
+
+    igTyping: {
+      init() {
+        const el = utils.qs('#ig-typing');
+        if (!el) return;
+
+        const fullText = el.textContent.trim();
+
+        if (state.prefersReducedMotion.matches) return;
+
+        el.textContent = '';
+        let i = 0;
+        const speed = 70;
+
+        const tick = () => {
+          el.textContent += fullText[i];
+          i++;
+          if (i < fullText.length) setTimeout(tick, speed);
+        };
+
+        tick();
       },
     },
   };
@@ -373,7 +329,6 @@
     init() {
       state.prefersReducedMotion.addEventListener('change', () => {
         features.scrollReveal.refresh();
-        features.cardsTilt.refresh();
       });
 
       state.mobileMediaQuery.addEventListener('change', () => {
@@ -389,8 +344,8 @@
       features.mobileMenu.init();
       features.scrollSpy.init();
       features.smoothScroll.init();
-      features.cardsTilt.init();
       features.footerYear.init();
+      features.igTyping.init();
       mediaListeners.init();
     },
   };
@@ -398,30 +353,4 @@
   document.addEventListener('DOMContentLoaded', () => {
     app.init();
   });
-})();
-
-
-(function typeInstagram() {
-  const el = document.querySelector("#ig-typing");
-  if (!el) return;
-
-  const fullText = el.textContent.trim();
-  el.textContent = "";
-
-  let i = 0;
-  const speed = 70; // ms por letra (ajusta aqui)
-
-  function tick() {
-    el.textContent += fullText[i];
-    i++;
-
-    if (i < fullText.length) {
-      setTimeout(tick, speed);
-    } else {
-      // opcional: para de piscar o cursor quando terminar
-      // el.classList.add("done");
-    }
-  }
-
-  tick();
 })();
