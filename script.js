@@ -223,6 +223,8 @@
       init() {
         const toggleButton = utils.qs('.nav-toggle');
         const nav = utils.qs('#nav-principal');
+        const overlay = utils.qs('.nav-overlay');
+        const closeButton = utils.qs('.nav-close');
         if (!toggleButton || !nav) return;
 
         const controller = utils.createAbortController();
@@ -235,6 +237,10 @@
           toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
           toggleButton.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
           nav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+          if (overlay) {
+            overlay.classList.toggle('open', isOpen);
+            overlay.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+          }
 
           if (isOpen) {
             lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
@@ -256,6 +262,22 @@
           { signal: controller.signal }
         );
 
+        if (closeButton) {
+          closeButton.addEventListener(
+            'click',
+            () => setMenuState(false),
+            { signal: controller.signal }
+          );
+        }
+
+        if (overlay) {
+          overlay.addEventListener(
+            'click',
+            () => setMenuState(false),
+            { signal: controller.signal }
+          );
+        }
+
         nav.addEventListener(
           'click',
           (event) => {
@@ -263,16 +285,6 @@
             if (target instanceof Element && target.matches('a[href^="#"]')) {
               setMenuState(false);
             }
-          },
-          { signal: controller.signal }
-        );
-
-        document.addEventListener(
-          'click',
-          (event) => {
-            if (!nav.classList.contains('open')) return;
-            if (nav.contains(event.target) || toggleButton.contains(event.target)) return;
-            setMenuState(false);
           },
           { signal: controller.signal }
         );
