@@ -1514,22 +1514,6 @@ h4 {
   white-space: nowrap;
 }
 
-#ig-typing.typing::after,
-#ig-typing.done::after {
-  content: "|";
-  margin-left: 2px;
-  color: var(--primary);
-  opacity: 1;
-}
-
-#ig-typing.typing::after {
-  animation: blink 0.7s step-end infinite;
-}
-
-#ig-typing.done::after {
-  animation: blink 1.2s step-end infinite;
-}
-
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }

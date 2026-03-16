@@ -1094,11 +1094,6 @@ textarea {
     animation: none;
   }
 
-  /* Cursor digitando */
-  #ig-typing.typing::after,
-  #ig-typing.done::after {
-    animation: none;
-  }
 
   /* Active states: sem transform */
   .btn:active,
