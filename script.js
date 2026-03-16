@@ -369,6 +369,8 @@
 
             if (mostVisible?.id) {
               setActiveLink(mostVisible.id);
+            } else if (entries.every((e) => !e.isIntersecting)) {
+              setActiveLink('');
             }
           },
           {
