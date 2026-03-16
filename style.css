@@ -1514,15 +1514,23 @@ h4 {
   white-space: nowrap;
 }
 
-#ig-typing::after {
-  content: "|";
-  margin-left: 6px;
-  animation: blink 0.8s infinite;
-  opacity: 1;
+#ig-typing.typing,
+#ig-typing.done {
+  border-right: 2px solid var(--primary);
+  padding-right: 4px;
 }
 
-@keyframes blink {
-  50% { opacity: 0; }
+#ig-typing.typing {
+  animation: blink-cursor 0.7s step-end infinite;
+}
+
+#ig-typing.done {
+  animation: blink-cursor 1.2s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { border-right-color: var(--primary); }
+  50%       { border-right-color: transparent; }
 }
 
 @keyframes fadeInSkill {
