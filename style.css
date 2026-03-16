@@ -286,6 +286,15 @@ h4 {
   gap: 0.45rem;
 }
 
+/* Elements that only exist in the mobile drawer — hidden on desktop */
+.nav-drawer-header {
+  display: none;
+}
+
+.nav-overlay {
+  display: none;
+}
+
 /* === CHECKPOINT: SEÇÕES === */
 .section-minimal {
   padding: 5rem 1.25rem;
@@ -1564,13 +1573,140 @@ h4 {
     scroll-padding-top: 72px;
   }
 
+  /* ---- Overlay ---- */
+  .nav-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1090;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .nav-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ---- Drawer header (close button + label) ---- */
+  .nav-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+  }
+
+  .nav-drawer-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.4);
+    margin: 0;
+  }
+
+  .nav-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .nav-close:hover {
+    background: rgba(255, 165, 0, 0.12);
+    border-color: rgba(255, 165, 0, 0.4);
+    color: #FFA500;
+  }
+
+  .nav-close:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  /* ---- Drawer nav ---- */
+  .nav-minimal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(300px, 82vw);
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    background: #111111;
+    border-left: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.6);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0s linear 0.35s;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .nav-minimal.open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0s linear 0s;
+  }
+
+  .nav-minimal ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0.5rem 0;
+    flex: 1;
+  }
+
+  .nav-minimal li {
+    width: 100%;
+  }
+
+  .nav-minimal .nav-link {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.07em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.18s ease, color 0.18s ease, padding-left 0.18s ease;
+  }
+
+  .nav-minimal .nav-link::after {
+    display: none;
+  }
+
+  .nav-minimal .nav-link:hover,
+  .nav-minimal .nav-link.active {
+    background: rgba(255, 165, 0, 0.07);
+    color: #FFA500;
+    padding-left: 2rem;
+    transform: none;
+  }
+
+  /* ---- CTA no drawer ---- */
   .nav-cta-item {
     width: 100%;
-    margin-left: 0;
-    padding-left: 0;
+    margin: auto 0 0 0;
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
     border-left: none;
-    padding-top: 0.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .btn.nav-cta {
@@ -1607,43 +1743,6 @@ h4 {
   .tagline {
     font-size: 0.65rem;
     letter-spacing: 0.05em;
-  }
-
-  .nav-minimal {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1100;
-    margin-top: 0.35rem;
-    background: #0f0f0f;
-    border-radius: 0 0 16px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
-    padding: 0.25rem 1rem 0.75rem;
-    display: none;
-  }
-
-  .nav-minimal.open {
-    display: block;
-  }
-
-  .nav-minimal ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.65rem;
-  }
-
-  .nav-minimal .nav-link {
-    width: 100%;
-    padding: 0.55rem 0;
-    font-size: 0.98rem;
-    letter-spacing: 0.06em;
-  }
-
-  .nav-minimal .nav-link::after {
-    bottom: 6px;
-    height: 2px;
   }
 
   body.body--menu-open {
