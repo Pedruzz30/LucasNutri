@@ -440,16 +440,43 @@
         if (state.prefersReducedMotion.matches) return;
 
         el.textContent = '';
-        let i = 0;
-        const speed = 70;
 
-        const tick = () => {
-          el.textContent += fullText[i];
-          i++;
-          if (i < fullText.length) setTimeout(tick, speed);
+        const pause  = ms => new Promise(res => setTimeout(res, ms));
+        const rand   = (min, max) => Math.random() * (max - min) + min;
+
+        const charDelay = char => {
+          let ms = rand(55, 110);
+          if (char === '@') ms += rand(80, 150);
+          if (char === '.') ms += rand(60, 120);
+          return ms;
         };
 
-        tick();
+        const loop = async () => {
+          // type
+          el.classList.add('typing');
+          await pause(400);
+
+          for (const char of fullText) {
+            el.textContent += char;
+            await pause(charDelay(char));
+          }
+
+          // idle
+          el.classList.replace('typing', 'done');
+          await pause(2800);
+
+          // erase
+          el.classList.replace('done', 'typing');
+          while (el.textContent.length > 0) {
+            el.textContent = el.textContent.slice(0, -1);
+            await pause(rand(35, 60));
+          }
+
+          await pause(500);
+          loop();
+        };
+
+        loop();
       },
     },
   };
