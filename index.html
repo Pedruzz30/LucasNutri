@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="mobile.css">
   <link rel="stylesheet" href="hero-redesign.css">
+  <link rel="stylesheet" href="sections-redesign.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter+Tight:wght@500;600;700;800;900&family=Poppins:wght@400;600;700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <script type="application/ld+json">
@@ -104,7 +105,7 @@
   <header class="header-minimal">
     <div class="container">
       <a class="logo-container" href="#inicio" aria-label="Lucas Souza — início">
-        <img src="assets/Foto de Perfil/Logo-Lucas-Souza-Transparente.png" alt="Lucas Souza Nutricionista" class="logo-img" width="48" height="48" decoding="async">
+       <img src="assets/Foto de Perfil/Logo-Lucas-Souza-Transparente.png" alt="Lucas Souza Nutricionista" class="logo-img" width="48" height="48" decoding="async">
         <div>
           <p class="logo">Lucas Souza</p>
           <p class="tagline">Nutricionista Esportivo</p>
@@ -129,6 +130,7 @@
         <ul>
           <li><a href="#sobre" class="nav-link">SOBRE</a></li>
           <li><a href="#consultoria" class="nav-link">CONSULTORIA</a></li>
+          <li><a href="#especialidades" class="nav-link">ESPECIALIDADES</a></li>
           <li><a href="#planos" class="nav-link">PLANOS</a></li>
           <li><a href="#depoimentos" class="nav-link">RESULTADOS</a></li>
           <li><a href="#faq" class="nav-link">DÚVIDAS</a></li>
@@ -158,16 +160,14 @@
       <div class="hero-visual" data-hero-visual>
         <div class="hero-visual__motion">
           <span class="hero-visual__orbit" aria-hidden="true"></span>
-          <span class="hero-visual__axis" aria-hidden="true"></span>
-          <span class="hero-visual__marker hero-visual__marker--top" aria-hidden="true">FORM / 01</span>
-          <span class="hero-visual__marker hero-visual__marker--bottom" aria-hidden="true">OUTPUT / MAX</span>
-          <div class="hero-visual__portrait">
+          <div class="hero-subject">
             <!-- Ao trocar pelo recorte final, atualize src, dimensões intrínsecas e srcset/sizes se disponíveis. -->
             <img
-              src="assets/Foto de Perfil/Lucas-imagem-de-perfil.webp"
-              alt="Lucas Souza, nutricionista esportivo"
-              width="400"
-              height="400"
+              class="hero-subject-image"
+              src="assets/Foto de Perfil/HeroIMG.webp"
+              alt="Atleta em treino de prancha isométrica numa academia com pouca luz"
+              width="1672"
+              height="941"
               loading="eager"
               fetchpriority="high"
             >
@@ -182,18 +182,12 @@
             <span aria-hidden="true">/</span>
             Sports nutrition
           </p>
-          <div class="hero__meta-right">
-            <p>Volta Redonda — RJ</p>
-            <p class="hero__availability"><span aria-hidden="true"></span>Agenda aberta</p>
-          </div>
+          <p class="hero__availability"><span aria-hidden="true"></span>Agenda aberta</p>
         </div>
 
         <div class="hero__composition">
           <div class="hero__content">
-            <p class="hero__chapter hero-reveal">
-              <span>Human performance / nutrition</span>
-              <span>LS — 01</span>
-            </p>
+            <p class="hero__chapter hero-reveal">LS — 01</p>
 
             <h1 class="hero-title" id="hero-title">
               <span class="hero-title__line"><span class="hero-title__text">Nutrição</span></span>
@@ -230,168 +224,350 @@
             <li><span>02</span>Composição</li>
             <li><span>03</span>Recuperação</li>
           </ol>
-
-          <a class="hero__scroll-cue" href="#sobre" aria-label="Ir para a seção Sobre mim">
-            <span>Explorar</span>
-            <svg viewBox="0 0 12 18" aria-hidden="true">
-              <path d="M6 1v14M1 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.25"/>
-            </svg>
-          </a>
         </div>
       </div>
     </section>
 
     <!-- CHECKPOINT: SOBRE MIM -->
-    <section id="sobre" class="section-minimal section--alt animation-on-scroll">
-      <div class="container">
-        <h2 class="section-title">SOBRE MIM</h2>
-        <div class="about-layout">
-          <div class="about-profile">
-            <div class="about-profile-card">
-              <span class="about-eyebrow">Nutrição esportiva &amp; emagrecimento saudável</span>
-              <h3>Lucas Souza</h3>
-              <p class="about-credential"><i class="fas fa-id-card" aria-hidden="true"></i> CRN 22103294 — Nutricionista Clínico e Esportivo</p>
-              <p>Minha missão é traduzir ciência em um plano simples de seguir, com ajustes estratégicos e suporte real para a sua rotina.</p>
-              <div class="about-profile-tags">
-                <span>Estratégia individual</span>
-                <span>Constância</span>
-                <span>Resultado real</span>
-              </div>
-              <a class="btn btn-outline" href="#contato">Falar comigo</a>
+    <section id="sobre" class="ls-section animation-on-scroll">
+      <div class="ls-container">
+        <header class="ls-head">
+          <p class="ls-head__meta">
+            <span>LS &mdash; 02</span>
+            <span>Quem conduz</span>
+          </p>
+          <h2 class="ls-title">Sobre <em>mim</em><span class="ls-dot">.</span></h2>
+        </header>
+
+        <div class="ls-about">
+          <div class="ls-about__card">
+            <div class="ls-about__portrait">
+              <img
+                src="assets/Foto de Perfil/FotoAbout.webp"
+                alt="Lucas Souza, nutricionista clínico e esportivo"
+                width="1254"
+                height="1254"
+                loading="lazy"
+                decoding="async"
+              >
             </div>
+            <span class="ls-about__eyebrow">Nutrição esportiva &amp; emagrecimento saudável</span>
+            <h3 class="ls-about__name">Lucas Souza</h3>
+            <p class="ls-about__crn">CRN 22103294 &mdash; Nutricionista Clínico e Esportivo</p>
+            <p class="ls-about__note">Minha missão é traduzir ciência em um plano simples de seguir, com ajustes estratégicos e suporte real para a sua rotina.</p>
+            <ul class="ls-about__tags">
+              <li>Estratégia individual</li>
+              <li>Constância</li>
+              <li>Resultado real</li>
+            </ul>
+            <a class="ls-btn ls-btn--ghost" href="#contato">
+              <span>Falar comigo</span>
+              <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
+            </a>
           </div>
 
-          <div class="about-details">
-            <div class="about-intro">
-              <h3>Uma abordagem humana, clara e baseada em evidências.</h3>
-              <p>Eu acompanho pessoas que querem melhorar performance, composição corporal e saúde sem atalhos. O foco é construir um plano sustentável, com metas objetivas e acompanhamento próximo.</p>
-            </div>
+          <div class="ls-about__details">
+            <h3 class="ls-about__statement">Uma abordagem humana, clara e baseada em evidências<span class="ls-dot">.</span></h3>
+            <p class="ls-about__body">Eu acompanho pessoas que querem melhorar performance, composição corporal e saúde sem atalhos. O foco é construir um plano sustentável, com metas objetivas e acompanhamento próximo.</p>
 
-            <div class="about-value-grid">
-              <div class="about-value-card">
-                <h4>Direção + clareza</h4>
-                <p>Você entende o porquê de cada escolha alimentar e aprende a manter autonomia com confiança.</p>
-              </div>
-              <div class="about-value-card">
-                <h4>Ajustes contínuos</h4>
-                <p>Revisões frequentes para alinhar o plano com sua evolução, rotina e objetivos.</p>
-              </div>
-              <div class="about-value-card">
-                <h4>Suporte próximo</h4>
-                <p>Acompanhamento real para tirar dúvidas, ajustar estratégias e manter o foco.</p>
-              </div>
-            </div>
+            <ol class="ls-numbered" data-stagger>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">01</span>
+                <div>
+                  <h4>Direção + clareza</h4>
+                  <p>Você entende o porquê de cada escolha alimentar e aprende a manter autonomia com confiança.</p>
+                </div>
+              </li>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">02</span>
+                <div>
+                  <h4>Ajustes contínuos</h4>
+                  <p>Revisões frequentes para alinhar o plano com sua evolução, rotina e objetivos.</p>
+                </div>
+              </li>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">03</span>
+                <div>
+                  <h4>Suporte próximo</h4>
+                  <p>Acompanhamento real para tirar dúvidas, ajustar estratégias e manter o foco.</p>
+                </div>
+              </li>
+            </ol>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CHECKPOINT: CONSULTORIA + ESPECIALIDADES -->
-    <section class="section-minimal animation-on-scroll" id="consultoria">
-      <div class="container">
-        <h2 class="section-title">CONSULTORIA</h2>
+    <section id="consultoria" class="ls-section ls-section--alt animation-on-scroll">
+      <div class="ls-container">
+        <header class="ls-head">
+          <p class="ls-head__meta">
+            <span>LS &mdash; 03</span>
+            <span>Como eu trabalho</span>
+          </p>
+          <h2 class="ls-title">Consultoria<span class="ls-dot">.</span></h2>
+        </header>
 
-        <div class="consultoria-grid">
-          <div class="consultoria-info">
-            <h3>Planos com método, constância e acompanhamento de verdade</h3>
+        <div class="ls-consult">
+          <div class="ls-consult__text">
+            <h3 class="ls-consult__statement">Planos com método, constância e acompanhamento de verdade</h3>
 
-            <p>
-              Atendo no formato <strong>on-line</strong> e <strong>presencial</strong>, sempre com foco em
-              performance, saúde e resultado sustentável. Você recebe um plano que encaixa na sua rotina
-              e evolui com acompanhamento.
-            </p>
+            <p>Atendo no formato <strong>on-line</strong> e <strong>presencial</strong>, sempre com foco em performance, saúde e resultado sustentável. Você recebe um plano que encaixa na sua rotina e evolui com acompanhamento.</p>
 
-            <p>
-              A consulta é individual, com avaliação completa, metas claras e estratégias alimentares
-              personalizadas. O objetivo é melhorar seu rendimento, composição corporal e qualidade de vida
-              sem extremos.
-            </p>
+            <p>A consulta é individual, com avaliação completa, metas claras e estratégias alimentares personalizadas. O objetivo é melhorar seu rendimento, composição corporal e qualidade de vida sem extremos.</p>
 
-            <p>
-              Pelo <strong>WhatsApp</strong>, você pode tirar dúvidas, entender o processo e agendar sua consulta.
-              Respondo com clareza, objetividade e atenção ao que você precisa.
-            </p>
+            <p>Pelo <strong>WhatsApp</strong>, você pode tirar dúvidas, entender o processo e agendar sua consulta. Respondo com clareza, objetividade e atenção ao que você precisa.</p>
 
-            <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-              Agendar pelo WhatsApp
-            </a>
+            <div class="ls-consult__cta">
+              <a
+                class="ls-btn ls-btn--solid ls-btn--wide"
+                href="https://wa.me/5524998377369"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Agendar consulta pelo WhatsApp (abre em nova aba)"
+              >
+                <span>Agendar pelo WhatsApp</span>
+                <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
+              </a>
+            </div>
           </div>
 
-          <div class="consultoria-steps">
-            <h3 class="skills-title">Como funciona</h3>
-            <ul class="steps-list">
-              <li>Diagnóstico completo e metas alinhadas ao seu objetivo.</li>
-              <li>Plano alimentar personalizado com foco em performance e resultados reais.</li>
-              <li>Monitoramento contínuo com ajustes periódicos para manter a evolução.</li>
-            </ul>
+          <div class="ls-consult__steps">
+            <h3 class="ls-subhead">Como funciona</h3>
+            <ol class="ls-numbered" data-stagger>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">01</span>
+                <div>
+                  <h4>Diagnóstico</h4>
+                  <p>Avaliação completa e metas alinhadas ao seu objetivo.</p>
+                </div>
+              </li>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">02</span>
+                <div>
+                  <h4>Plano personalizado</h4>
+                  <p>Estratégia alimentar com foco em performance e resultados reais.</p>
+                </div>
+              </li>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">03</span>
+                <div>
+                  <h4>Monitoramento</h4>
+                  <p>Acompanhamento contínuo com ajustes periódicos para manter a evolução.</p>
+                </div>
+              </li>
+            </ol>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="skills-container">
-          <h3 class="skills-title">Especialidades</h3>
-          <ul class="skills-list" data-stagger>
-            <li class="stagger-item"><i class="fas fa-dumbbell" aria-hidden="true"></i> Nutrição Esportiva</li>
-            <li class="stagger-item"><i class="fas fa-fire" aria-hidden="true"></i> Emagrecimento Saudável</li>
-            <li class="stagger-item"><i class="fas fa-leaf" aria-hidden="true"></i> Nutrição Funcional</li>
-            <li class="stagger-item"><i class="fas fa-utensils" aria-hidden="true"></i> Planejamento Alimentar</li>
-            <li class="stagger-item"><i class="fas fa-flask" aria-hidden="true"></i> Suplementação Esportiva</li>
-            <li class="stagger-item"><i class="fas fa-seedling" aria-hidden="true"></i> Manuseio de Fitoterápicos</li>
-            <li class="stagger-item"><i class="fas fa-heart-pulse" aria-hidden="true"></i> Tratamento de Doenças</li>
-            <li class="stagger-item"><i class="fas fa-baby" aria-hidden="true"></i> Alimentação Infantil</li>
-          </ul>
+    <!-- CHECKPOINT: ESPECIALIDADES -->
+    <section id="especialidades" class="ls-section animation-on-scroll">
+      <div class="ls-container">
+        <header class="ls-head">
+          <p class="ls-head__meta">
+            <span>LS &mdash; 04</span>
+            <span>Áreas de atuação</span>
+          </p>
+          <h2 class="ls-title">Especialidades<span class="ls-dot">.</span></h2>
+          <p class="ls-lede">Oito frentes de atuação clínica e esportiva. Cada plano combina o que faz sentido para o seu momento &mdash; nunca um pacote fechado.</p>
+        </header>
+
+        <div class="ls-spec" data-stagger>
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">01</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">01</span>
+              <i class="fas fa-dumbbell ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Nutrição Esportiva</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Estratégia alimentar alinhada ao ciclo de treinos, à competição e à recuperação.</p>
+            </div>
+          </article>
+
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">02</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">02</span>
+              <i class="fas fa-fire ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Emagrecimento Saudável</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Mudança de composição corporal com plano sustentável, sem dietas extremas.</p>
+            </div>
+          </article>
+
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">03</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">03</span>
+              <i class="fas fa-leaf ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Nutrição Funcional</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Abordagem integrativa que considera sintomas, exames e a sua rotina alimentar.</p>
+            </div>
+          </article>
+
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">04</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">04</span>
+              <i class="fas fa-utensils ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Planejamento Alimentar</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Cardápio estruturado e flexível, desenhado para a rotina que você tem de verdade.</p>
+            </div>
+          </article>
+
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">05</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">05</span>
+              <i class="fas fa-flask ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Suplementação Esportiva</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Indicação criteriosa, apenas quando há justificativa clara e respaldo em evidência.</p>
+            </div>
+          </article>
+
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">06</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">06</span>
+              <i class="fas fa-seedling ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Manuseio de Fitoterápicos</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Prescrição de fitoterápicos dentro das atribuições do nutricionista.</p>
+            </div>
+          </article>
+
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">07</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">07</span>
+              <i class="fas fa-heart-pulse ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Condições Clínicas</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Conduta nutricional de apoio no manejo de condições clínicas, junto à equipe de saúde.</p>
+            </div>
+          </article>
+
+          <article class="ls-spec__item stagger-item">
+            <span class="ls-spec__ghost" aria-hidden="true">08</span>
+            <p class="ls-spec__top">
+              <span class="ls-spec__n">08</span>
+              <i class="fas fa-baby ls-spec__icon" aria-hidden="true"></i>
+            </p>
+            <div class="ls-spec__body">
+              <h3 class="ls-spec__name">Alimentação Infantil</h3>
+              <span class="ls-spec__rule" aria-hidden="true"></span>
+              <p class="ls-spec__desc">Acompanhamento de crianças e adolescentes, incluindo jovens atletas.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- CHECKPOINT: PLANOS -->
-    <section id="planos" class="section-minimal animation-on-scroll">
-      <div class="container">
-        <h2 class="section-title">PLANOS E ACOMPANHAMENTO</h2>
-        <p class="section-subtitle">
-          Escolha o formato ideal para seu objetivo e tenha clareza sobre cada entrega.
-        </p>
-        <div class="plans-grid" data-stagger>
-          <article class="plan-card stagger-item">
-            <h3>Consulta Individual</h3>
-            <p>Ideal para avaliação completa, ajuste estratégico e plano inicial.</p>
-            <ul>
+    <section id="planos" class="ls-section animation-on-scroll">
+      <div class="ls-container">
+        <header class="ls-head">
+          <p class="ls-head__meta">
+            <span>LS &mdash; 05</span>
+            <span>Formatos de acompanhamento</span>
+          </p>
+          <h2 class="ls-title">Planos<span class="ls-dot">.</span></h2>
+          <p class="ls-lede">Escolha o formato ideal para seu objetivo e tenha clareza sobre cada entrega.</p>
+        </header>
+
+        <div class="ls-plans" data-stagger>
+          <article class="ls-plan stagger-item">
+            <p class="ls-plan__top">
+              <span class="ls-plan__n">01</span>
+              <span>Ponto de partida</span>
+            </p>
+            <h3 class="ls-plan__name">Consulta Individual</h3>
+            <p class="ls-plan__desc">Ideal para avaliação completa, ajuste estratégico e plano inicial.</p>
+            <ul class="ls-plan__features">
               <li>Consulta de 50 a 60 minutos (online ou presencial).</li>
               <li>Diagnóstico e metas alinhadas ao seu objetivo.</li>
               <li>Plano alimentar personalizado.</li>
               <li>Recomendações de suplementação quando necessário.</li>
             </ul>
-            <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-whatsapp" aria-hidden="true"></i>
-              Agendar pelo WhatsApp
+            <a
+              class="ls-btn ls-btn--ghost"
+              href="https://wa.me/5524998377369"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Agendar Consulta Individual pelo WhatsApp (abre em nova aba)"
+            >
+              <span>Agendar</span>
+              <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
             </a>
           </article>
-          <article class="plan-card featured stagger-item">
-            <span class="plan-badge">Mais escolhido</span>
-            <h3>Acompanhamento Mensal</h3>
-            <p>Constância, ajustes frequentes e suporte direto para evolução contínua.</p>
-            <ul>
+
+          <article class="ls-plan ls-plan--featured stagger-item">
+            <p class="ls-plan__top">
+              <span class="ls-plan__n">02</span>
+              <span class="ls-plan__badge">Mais escolhido</span>
+            </p>
+            <h3 class="ls-plan__name">Acompanhamento Mensal</h3>
+            <p class="ls-plan__desc">Constância, ajustes frequentes e suporte direto para evolução contínua.</p>
+            <ul class="ls-plan__features">
               <li>Consulta inicial + check-ins semanais ou quinzenais.</li>
               <li>Ajustes contínuos no plano alimentar.</li>
               <li>Suporte via WhatsApp com resposta em até 24h.</li>
               <li>Relatório de evolução mensal.</li>
             </ul>
-            <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-whatsapp" aria-hidden="true"></i>
-              Agendar pelo WhatsApp
+            <a
+              class="ls-btn ls-btn--solid"
+              href="https://wa.me/5524998377369"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Agendar Acompanhamento Mensal pelo WhatsApp (abre em nova aba)"
+            >
+              <span>Agendar</span>
+              <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
             </a>
           </article>
-          <article class="plan-card stagger-item">
-            <h3>Programa para Atletas</h3>
-            <p>Estratégia avançada com periodização alimentar e foco em performance.</p>
-            <ul>
+
+          <article class="ls-plan stagger-item">
+            <p class="ls-plan__top">
+              <span class="ls-plan__n">03</span>
+              <span>Alta performance</span>
+            </p>
+            <h3 class="ls-plan__name">Programa para Atletas</h3>
+            <p class="ls-plan__desc">Estratégia avançada com periodização alimentar e foco em performance.</p>
+            <ul class="ls-plan__features">
               <li>Periodização alimentar alinhada ao ciclo de treinos.</li>
               <li>Monitoramento de performance e recuperação.</li>
               <li>Estratégias nutricionais para competição e pré-prova.</li>
               <li>Suporte contínuo durante a temporada.</li>
             </ul>
-            <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-              <i class="fab fa-whatsapp" aria-hidden="true"></i>
-              Agendar pelo WhatsApp
+            <a
+              class="ls-btn ls-btn--ghost"
+              href="https://wa.me/5524998377369"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Agendar Programa para Atletas pelo WhatsApp (abre em nova aba)"
+            >
+              <span>Agendar</span>
+              <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
             </a>
           </article>
         </div>
@@ -399,215 +575,262 @@
     </section>
 
     <!-- CHECKPOINT: DEPOIMENTOS -->
-    <section id="depoimentos" class="section-minimal section--alt testimonials animation-on-scroll">
-      <div class="container">
-        <h2 class="section-title">RESULTADOS REAIS</h2>
-        <div class="testimonials-grid" data-stagger>
-          <article class="testimonial-card stagger-item">
-            <div class="testimonial-stars" aria-label="5 estrelas">★★★★★</div>
-            <p>"A consulta foi muito clara e prática. Em poucas semanas já senti mais energia e disciplina no dia a dia."</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">M</div>
-              <span>Mariana F. — Emagrecimento saudável</span>
-            </div>
+    <section id="depoimentos" class="ls-section ls-section--alt animation-on-scroll">
+      <div class="ls-container">
+        <header class="ls-head">
+          <p class="ls-head__meta">
+            <span>LS &mdash; 06</span>
+            <span>Quem já passou por aqui</span>
+          </p>
+          <h2 class="ls-title">Resultados <em>reais</em><span class="ls-dot">.</span></h2>
+        </header>
+
+        <div class="ls-quotes" data-stagger>
+          <article class="ls-quote stagger-item">
+            <p class="ls-quote__stars" aria-label="5 de 5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <blockquote class="ls-quote__text">&ldquo;A consulta foi muito clara e prática. Em poucas semanas já senti mais energia e disciplina no dia a dia.&rdquo;</blockquote>
+            <footer class="ls-quote__author">
+              <span class="ls-quote__mark" aria-hidden="true">M</span>
+              <span class="ls-quote__who"><b>Mariana F.</b>Emagrecimento saudável</span>
+            </footer>
           </article>
-          <article class="testimonial-card stagger-item">
-            <div class="testimonial-stars" aria-label="5 estrelas">★★★★★</div>
-            <p>"O acompanhamento ajustado ao meu treino fez toda a diferença no rendimento e recuperação. Resultado real."</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">P</div>
-              <span>Paulo R. — Atleta amador</span>
-            </div>
+
+          <article class="ls-quote stagger-item">
+            <p class="ls-quote__stars" aria-label="5 de 5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <blockquote class="ls-quote__text">&ldquo;O acompanhamento ajustado ao meu treino fez toda a diferença no rendimento e recuperação. Resultado real.&rdquo;</blockquote>
+            <footer class="ls-quote__author">
+              <span class="ls-quote__mark" aria-hidden="true">P</span>
+              <span class="ls-quote__who"><b>Paulo R.</b>Atleta amador</span>
+            </footer>
           </article>
-          <article class="testimonial-card stagger-item">
-            <div class="testimonial-stars" aria-label="5 estrelas">★★★★★</div>
-            <p>"Plano simples de seguir e realmente adaptado à minha rotina. Resultado sem extremismo e de forma sustentável."</p>
-            <div class="testimonial-author">
-              <div class="testimonial-avatar" aria-hidden="true">C</div>
-              <span>Camila S. — Reeducação alimentar</span>
-            </div>
+
+          <article class="ls-quote stagger-item">
+            <p class="ls-quote__stars" aria-label="5 de 5 estrelas">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+            <blockquote class="ls-quote__text">&ldquo;Plano simples de seguir e realmente adaptado à minha rotina. Resultado sem extremismo e de forma sustentável.&rdquo;</blockquote>
+            <footer class="ls-quote__author">
+              <span class="ls-quote__mark" aria-hidden="true">C</span>
+              <span class="ls-quote__who"><b>Camila S.</b>Reeducação alimentar</span>
+            </footer>
           </article>
         </div>
 
-        <div class="section-cta-block">
+        <div class="ls-band">
           <p>Pronto para começar sua transformação?</p>
-          <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-            Agendar pelo WhatsApp
+          <a
+            class="ls-btn ls-btn--solid"
+            href="https://wa.me/5524998377369"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Agendar consulta pelo WhatsApp (abre em nova aba)"
+          >
+            <span>Agendar pelo WhatsApp</span>
+            <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
           </a>
         </div>
       </div>
     </section>
 
     <!-- CHECKPOINT: FAQ -->
-    <section id="faq" class="section-minimal animation-on-scroll">
-      <div class="container">
-        <h2 class="section-title">DÚVIDAS FREQUENTES</h2>
-        <div class="faq-grid">
-          <details class="faq-item">
-            <summary>As consultas são online ou presenciais?</summary>
-            <p>Atendo nos dois formatos. O plano é ajustado conforme sua rotina e objetivo, sem diferença na qualidade do acompanhamento.</p>
+    <section id="faq" class="ls-section animation-on-scroll">
+      <div class="ls-container">
+        <header class="ls-head">
+          <p class="ls-head__meta">
+            <span>LS &mdash; 07</span>
+            <span>Antes de começar</span>
+          </p>
+          <h2 class="ls-title">Dúvidas <em>frequentes</em><span class="ls-dot">.</span></h2>
+        </header>
+
+        <div class="ls-faq">
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">01</span>As consultas são online ou presenciais?</summary>
+            <p class="ls-faq__answer">Atendo nos dois formatos. O plano é ajustado conforme sua rotina e objetivo, sem diferença na qualidade do acompanhamento.</p>
           </details>
-          <details class="faq-item">
-            <summary>Preciso usar suplementos?</summary>
-            <p>Somente quando necessário e justificado. A base sempre será alimentação real e personalizada — suplemento é recurso, não obrigação.</p>
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">02</span>Preciso usar suplementos?</summary>
+            <p class="ls-faq__answer">Somente quando necessário e justificado. A base sempre será alimentação real e personalizada &mdash; suplemento é recurso, não obrigação.</p>
           </details>
-          <details class="faq-item">
-            <summary>Como funciona o acompanhamento mensal?</summary>
-            <p>Você recebe check-ins semanais ou quinzenais, ajustes no plano e suporte direto via WhatsApp para manter evolução constante ao longo do mês.</p>
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">03</span>Como funciona o acompanhamento mensal?</summary>
+            <p class="ls-faq__answer">Você recebe check-ins semanais ou quinzenais, ajustes no plano e suporte direto via WhatsApp para manter evolução constante ao longo do mês.</p>
           </details>
-          <details class="faq-item">
-            <summary>Posso alinhar o plano com meu treino?</summary>
-            <p>Sim. A periodização alimentar é pensada especificamente para performance, recuperação muscular e composição corporal.</p>
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">04</span>Posso alinhar o plano com meu treino?</summary>
+            <p class="ls-faq__answer">Sim. A periodização alimentar é pensada especificamente para performance, recuperação muscular e composição corporal.</p>
           </details>
-          <details class="faq-item">
-            <summary>Qual é a duração de cada consulta?</summary>
-            <p>As consultas individuais têm duração média de 50 a 60 minutos. No formato online, são realizadas por videochamada em horário combinado.</p>
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">05</span>Qual é a duração de cada consulta?</summary>
+            <p class="ls-faq__answer">As consultas individuais têm duração média de 50 a 60 minutos. No formato online, são realizadas por videochamada em horário combinado.</p>
           </details>
-          <details class="faq-item">
-            <summary>Como funciona o primeiro contato?</summary>
-            <p>É só mandar uma mensagem pelo WhatsApp. Respondo com clareza sobre o processo, o formato de atendimento e os próximos passos para começar.</p>
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">06</span>Como funciona o primeiro contato?</summary>
+            <p class="ls-faq__answer">É só mandar uma mensagem pelo WhatsApp. Respondo com clareza sobre o processo, o formato de atendimento e os próximos passos para começar.</p>
           </details>
-          <details class="faq-item">
-            <summary>O plano alimentar é rígido ou flexível?</summary>
-            <p>É flexível e adaptado à sua rotina real. O objetivo é encaixar na sua vida — não o contrário. Ajustes são feitos sempre que necessário.</p>
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">07</span>O plano alimentar é rígido ou flexível?</summary>
+            <p class="ls-faq__answer">É flexível e adaptado à sua rotina real. O objetivo é encaixar na sua vida &mdash; não o contrário. Ajustes são feitos sempre que necessário.</p>
           </details>
-          <details class="faq-item">
-            <summary>Atende qual faixa etária?</summary>
-            <p>Atendo adultos de todas as faixas etárias e também crianças e adolescentes na área de alimentação infantil e nutrição para jovens atletas.</p>
+          <details class="ls-faq__item">
+            <summary><span class="ls-faq__n">08</span>Atende qual faixa etária?</summary>
+            <p class="ls-faq__answer">Atendo adultos de todas as faixas etárias e também crianças e adolescentes na área de alimentação infantil e nutrição para jovens atletas.</p>
           </details>
         </div>
 
-        <div class="section-cta-block">
-          <p>Ainda tem dúvidas? Fale direto comigo pelo WhatsApp.</p>
-          <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-            Tirar dúvidas pelo WhatsApp
+        <div class="ls-band">
+          <p>Ainda tem dúvidas? Fale direto comigo.</p>
+          <a
+            class="ls-btn ls-btn--ghost"
+            href="https://wa.me/5524998377369"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Tirar dúvidas pelo WhatsApp (abre em nova aba)"
+          >
+            <span>Tirar dúvidas pelo WhatsApp</span>
+            <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
           </a>
         </div>
       </div>
     </section>
 
     <!-- CHECKPOINT: CONTATO -->
-    <section id="contato" class="section-minimal contact-section animation-on-scroll">
-      <div class="container">
-        <h2 class="section-title">CONTATO</h2>
-        <p class="section-subtitle">
-          Vagas disponíveis — manda uma mensagem agora e comece a transformar sua alimentação com estratégia real.
-        </p>
+    <section id="contato" class="ls-section ls-section--alt animation-on-scroll">
+      <div class="ls-container">
+        <header class="ls-head">
+          <p class="ls-head__meta">
+            <span>LS &mdash; 08</span>
+            <span><b>Agenda aberta</b></span>
+          </p>
+          <h2 class="ls-title">Contato<span class="ls-dot">.</span></h2>
+        </header>
 
-        <div class="contact-grid">
-          <div class="contact-highlight">
-            <h3>Atendimento rápido</h3>
-            <p>Chame no WhatsApp e receba orientação clara para começar com segurança.</p>
-          </div>
-          <div class="contact-highlight">
-            <h3>Resposta objetiva</h3>
-            <p>Direto ao ponto, com foco no melhor caminho para o seu objetivo.</p>
-          </div>
-          <div class="contact-highlight">
-            <h3>On-line ou presencial</h3>
-            <p>Flexibilidade total para adaptar o acompanhamento à sua rotina.</p>
-          </div>
-        </div>
+        <div class="ls-contact">
+          <div>
+            <h3 class="ls-contact__statement">Vagas disponíveis<span class="ls-dot">.</span></h3>
+            <p class="ls-lede">Manda uma mensagem agora e comece a transformar sua alimentação com estratégia real.</p>
 
-        <div class="contact-cta">
-          <a class="btn btn-whatsapp" href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
-            Agendar pelo WhatsApp
-          </a>
-          <a class="btn btn-outline" href="mailto:lucas@lucassouzanutri.com">
-            Enviar e-mail
-          </a>
+            <div class="ls-contact__actions">
+              <a
+                class="ls-btn ls-btn--solid"
+                href="https://wa.me/5524998377369"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Agendar consulta pelo WhatsApp (abre em nova aba)"
+              >
+                <span>Agendar pelo WhatsApp</span>
+                <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
+              </a>
+              <a class="ls-btn ls-btn--ghost" href="mailto:lucas@lucassouzanutri.com">
+                <span>Enviar e-mail</span>
+                <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
+              </a>
+            </div>
+
+            <ul class="ls-contact__direct">
+              <li><span class="ls-k">WhatsApp</span><a href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">(24) 99837-7369</a></li>
+              <li><span class="ls-k">E-mail</span><a class="ls-lower" href="mailto:lucas@lucassouzanutri.com">lucas@lucassouzanutri.com</a></li>
+              <li><span class="ls-k">Registro</span><span class="ls-v">CRN 22103294</span></li>
+              <li><span class="ls-k">Formato</span><span class="ls-v">Online / Presencial</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="ls-subhead">O que esperar</h3>
+            <ol class="ls-numbered" data-stagger>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">01</span>
+                <div>
+                  <h4>Atendimento rápido</h4>
+                  <p>Chame no WhatsApp e receba orientação clara para começar com segurança.</p>
+                </div>
+              </li>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">02</span>
+                <div>
+                  <h4>Resposta objetiva</h4>
+                  <p>Direto ao ponto, com foco no melhor caminho para o seu objetivo.</p>
+                </div>
+              </li>
+              <li class="stagger-item">
+                <span class="ls-numbered__n">03</span>
+                <div>
+                  <h4>On-line ou presencial</h4>
+                  <p>Flexibilidade total para adaptar o acompanhamento à sua rotina.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
   <!-- CHECKPOINT: FOOTER -->
-  <footer class="footer-minimal">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand-block">
-          <div class="footer-logo">
-            <img src="assets/Foto de Perfil/Lucas-imagem-de-perfil.webp" alt="Lucas Souza" width="56" height="56" loading="lazy" decoding="async">
-            <div>
-              <span class="footer-brand-name">Lucas Souza</span>
-              <p class="footer-brand-role">Nutricionista Clínico e Esportivo</p>
-            </div>
-          </div>
+  <footer class="ls-footer">
+    <div class="ls-container">
+      <p class="ls-footer__wordmark" aria-hidden="true">Lucas Souza</p>
 
-          <p class="footer-brand-description">
-            Atendimento personalizado para transformar sua alimentação com estratégia, constância e resultados reais.
-          </p>
-
-          <a href="#contato" class="btn btn-primary footer-cta-link">Agendar consulta</a>
+      <div class="ls-footer__grid">
+        <div>
+          <h4>Nutricionista</h4>
+          <p class="ls-footer__name">Lucas Souza</p>
+          <p class="ls-footer__role">CRN 22103294</p>
+          <p class="ls-footer__desc">Atendimento personalizado para transformar sua alimentação com estratégia, constância e resultados reais.</p>
+          <a class="ls-btn ls-btn--solid" href="#contato">
+            <span>Agendar consulta</span>
+            <span class="ls-btn__arrow" aria-hidden="true">&#8599;</span>
+          </a>
         </div>
 
-        <div class="footer-links-group" aria-label="Navegação do rodapé">
-          <div class="footer-links-column">
-            <h4>Mapa do site</h4>
+        <nav class="ls-footer__col" aria-label="Mapa do site">
+          <h4>Mapa do site</h4>
+          <div class="ls-footer__nav">
             <a href="#inicio">Início</a>
             <a href="#sobre">Sobre</a>
             <a href="#consultoria">Consultoria</a>
             <a href="#planos">Planos</a>
           </div>
+        </nav>
 
-          <div class="footer-links-column">
-            <h4>Mais informações</h4>
+        <nav class="ls-footer__col" aria-label="Mais informações">
+          <h4>Mais informações</h4>
+          <div class="ls-footer__nav">
             <a href="#sobre">O que faço</a>
             <a href="#depoimentos">Resultados</a>
             <a href="#faq">Dúvidas</a>
             <a href="#contato">Contato</a>
           </div>
-        </div>
+        </nav>
 
-        <div class="footer-contact-panel">
+        <div>
           <h4>Fale comigo</h4>
-          <p>Atendimento com foco em metas claras e um plano adaptado à sua rotina.</p>
-
-          <div class="contact-card footer-contact-card">
-            <a
-              href="https://www.linkedin.com/in/lucas-souza-nutri"
-              class="socialContainer containerOne"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noopener noreferrer">
-              <i class="fab fa-linkedin-in socialSvg"></i>
+          <div class="ls-footer__social">
+            <a href="https://wa.me/5524998377369" target="_blank" rel="noopener noreferrer">
+              <span>WhatsApp</span>
+              <i class="fab fa-whatsapp" aria-hidden="true"></i>
             </a>
-
-            <a
-              href="https://www.instagram.com/lucasouza.nutri"
-              class="socialContainer containerTwo"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noopener noreferrer">
-              <i class="fab fa-instagram socialSvg"></i>
+            <a href="https://www.instagram.com/lucasouza.nutri" target="_blank" rel="noopener noreferrer">
+              <span>Instagram</span>
+              <i class="fab fa-instagram" aria-hidden="true"></i>
             </a>
-
-            <a
-              href="https://wa.me/5524998377369"
-              class="socialContainer containerThree"
-              aria-label="WhatsApp"
-              target="_blank"
-              rel="noopener noreferrer">
-              <i class="fab fa-whatsapp socialSvg"></i>
+            <a href="https://www.linkedin.com/in/lucas-souza-nutri" target="_blank" rel="noopener noreferrer">
+              <span>LinkedIn</span>
+              <i class="fab fa-linkedin-in" aria-hidden="true"></i>
             </a>
-
-            <a
-              href="mailto:lucas@lucassouzanutri.com"
-              class="socialContainer containerFour"
-              aria-label="E-mail">
-              <i class="fas fa-envelope socialSvg"></i>
+            <a href="mailto:lucas@lucassouzanutri.com">
+              <span>E-mail</span>
+              <i class="fas fa-envelope" aria-hidden="true"></i>
             </a>
           </div>
         </div>
       </div>
 
-      <div class="footer-copyright">
-        <p>&copy; <span id="year"></span> Lucas Souza Nutricionista. Todos os direitos reservados.</p>
-        <p class="footer-crn">CRN: 22103294</p>
-        <p class="footer-legal">
-          <a href="#" class="footer-legal-link">Política de Privacidade</a>
-          &nbsp;·&nbsp;
-          <a href="#" class="footer-legal-link">Termos de Uso</a>
+      <div class="ls-footer__base">
+        <p>&copy; <span id="year"></span> Lucas Souza Nutricionista</p>
+        <p>CRN 22103294</p>
+        <p>
+          <a href="#">Política de Privacidade</a>
+          &nbsp;&middot;&nbsp;
+          <a href="#">Termos de Uso</a>
         </p>
       </div>
     </div>

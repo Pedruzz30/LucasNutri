@@ -471,54 +471,68 @@
     },
 
     scrollSpy: {
-      observer: null,
+      controller: null,
+      targets: [],
+      ticking: false,
       init() {
         const navLinks = utils.qsa('.nav-link[href^="#"]');
-        if (!navLinks.length || !utils.supportsIntersectionObserver()) return;
+        if (!navLinks.length) return;
 
-        const sections = navLinks
-          .map((link) => utils.qs(link.getAttribute('href')))
-          .filter(Boolean);
+        this.targets = navLinks
+          .map((link) => {
+            const id = link.getAttribute('href').slice(1);
+            const section = id ? document.getElementById(id) : null;
+            return section ? { id, section, link } : null;
+          })
+          .filter(Boolean)
+          .sort((a, b) =>
+            a.section.compareDocumentPosition(b.section) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1
+          );
 
-        if (!sections.length) return;
+        if (!this.targets.length) return;
 
-        const setActiveLink = (id) => {
-          navLinks.forEach((link) => {
-            const targetId = link.getAttribute('href')?.replace('#', '');
-            link.classList.toggle('active', targetId === id);
+        const controller = utils.createAbortController();
+        this.controller = controller;
+
+        const update = () => {
+          this.ticking = false;
+
+          // Linha de leitura logo abaixo do header fixo. A comparacao e por
+          // posicao, nao por area: com intersectionRatio, qualquer secao mais
+          // alta que a viewport nunca alcancava o threshold e nunca acendia.
+          const line = utils.getHeaderOffset() + window.innerHeight * 0.25;
+
+          // Vence a ultima secao que ja comecou acima da linha.
+          let activeId = null;
+          this.targets.forEach(({ id, section }) => {
+            if (section.getBoundingClientRect().top <= line) activeId = id;
+          });
+
+          this.targets.forEach(({ id, link }) => {
+            link.classList.toggle('active', id === activeId);
           });
         };
 
-        this.observer = new IntersectionObserver(
-          (entries) => {
-            let mostVisible = null;
-            let highestRatio = 0;
+        const onScroll = () => {
+          if (this.ticking) return;
+          this.ticking = true;
+          window.requestAnimationFrame(update);
+        };
 
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && entry.intersectionRatio >= highestRatio) {
-                highestRatio = entry.intersectionRatio;
-                mostVisible = entry.target;
-              }
-            });
-
-            if (mostVisible?.id) {
-              setActiveLink(mostVisible.id);
-            }
-          },
-          {
-            threshold: [0.2, 0.4, 0.6],
-            rootMargin: '-30% 0px -50% 0px',
-          }
-        );
-
-        sections.forEach((section) => this.observer.observe(section));
+        window.addEventListener('scroll', onScroll, { passive: true, signal: controller.signal });
+        window.addEventListener('resize', onScroll, { signal: controller.signal });
+        update();
       },
       refresh() {
-        if (this.observer) {
-          this.observer.disconnect();
-          this.observer = null;
-        }
+        this.destroy();
         this.init();
+      },
+      destroy() {
+        if (this.controller) {
+          this.controller.abort();
+          this.controller = null;
+        }
+        this.targets = [];
       },
     },
 
@@ -526,7 +540,7 @@
       controller: null,
       init() {
         const links = utils.qsa(
-          'a.nav-link[href^="#"], footer a[href^="#"], .logo-container[href^="#"], .hero__scroll-cue[href^="#"]'
+          'a.nav-link[href^="#"], footer a[href^="#"], .logo-container[href^="#"]'
         );
         if (!links.length) return;
 
