@@ -1,7 +1,7 @@
 (() => {
   const state = {
     prefersReducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)'),
-    mobileMediaQuery: window.matchMedia('(max-width: 768px)'),
+    mobileMediaQuery: window.matchMedia('(max-width: 1024px)'),
   };
 
   const utils = {
@@ -218,6 +218,130 @@
       },
     },
 
+    heroMotion: {
+      controller: null,
+      frameId: null,
+      hero: null,
+      visibilityObserver: null,
+      init() {
+        const hero = utils.qs('[data-hero]');
+        if (!hero) return;
+
+        this.hero = hero;
+
+        if (state.prefersReducedMotion.matches) {
+          this.reset();
+          return;
+        }
+
+        const controller = utils.createAbortController();
+        const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+        let currentX = 0;
+        let currentY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        let isHeroVisible = true;
+
+        const render = () => {
+          currentX += (targetX - currentX) * 0.09;
+          currentY += (targetY - currentY) * 0.09;
+
+          const rect = hero.getBoundingClientRect();
+          const progress = Math.max(0, Math.min(1, -rect.top / Math.max(rect.height, 1)));
+          const visualY = currentY + progress * 18;
+
+          hero.style.setProperty('--hero-visual-x', `${currentX.toFixed(2)}px`);
+          hero.style.setProperty('--hero-visual-y', `${visualY.toFixed(2)}px`);
+          hero.style.setProperty('--hero-word-y', `${(-progress * 24).toFixed(2)}px`);
+
+          const stillMoving =
+            Math.abs(targetX - currentX) > 0.05 ||
+            Math.abs(targetY - currentY) > 0.05;
+
+          this.frameId = stillMoving ? requestAnimationFrame(render) : null;
+        };
+
+        const queueRender = () => {
+          if (this.frameId === null) {
+            this.frameId = requestAnimationFrame(render);
+          }
+        };
+
+        const queueVisibleRender = () => {
+          if (isHeroVisible) queueRender();
+        };
+
+        if (finePointer.matches) {
+          hero.addEventListener(
+            'pointermove',
+            (event) => {
+              const bounds = hero.getBoundingClientRect();
+              const normalizedX = (event.clientX - bounds.left) / bounds.width - 0.5;
+              const normalizedY = (event.clientY - bounds.top) / bounds.height - 0.5;
+              targetX = normalizedX * 18;
+              targetY = normalizedY * 12;
+              queueRender();
+            },
+            { passive: true, signal: controller.signal }
+          );
+
+          hero.addEventListener(
+            'pointerleave',
+            () => {
+              targetX = 0;
+              targetY = 0;
+              queueRender();
+            },
+            { signal: controller.signal }
+          );
+        }
+
+        if (utils.supportsIntersectionObserver()) {
+          this.visibilityObserver = new IntersectionObserver(
+            ([entry]) => {
+              isHeroVisible = Boolean(entry?.isIntersecting);
+              if (isHeroVisible) queueRender();
+            },
+            { threshold: 0 }
+          );
+          this.visibilityObserver.observe(hero);
+        }
+
+        window.addEventListener('scroll', queueVisibleRender, {
+          passive: true,
+          signal: controller.signal,
+        });
+        window.addEventListener('resize', queueRender, {
+          passive: true,
+          signal: controller.signal,
+        });
+
+        this.controller = controller;
+        queueRender();
+      },
+      reset() {
+        if (!this.hero) return;
+        this.hero.style.removeProperty('--hero-visual-x');
+        this.hero.style.removeProperty('--hero-visual-y');
+        this.hero.style.removeProperty('--hero-word-y');
+      },
+      destroy() {
+        if (this.controller) {
+          this.controller.abort();
+          this.controller = null;
+        }
+        if (this.frameId !== null) {
+          cancelAnimationFrame(this.frameId);
+          this.frameId = null;
+        }
+        if (this.visibilityObserver) {
+          this.visibilityObserver.disconnect();
+          this.visibilityObserver = null;
+        }
+        this.reset();
+      },
+    },
+
     mobileMenu: {
       controller: null,
       init() {
@@ -230,28 +354,38 @@
         const controller = utils.createAbortController();
         let lastFocusedElement = null;
 
-        const setMenuState = (isOpen) => {
-          nav.classList.toggle('open', isOpen);
-          toggleButton.classList.toggle('is-active', isOpen);
-          document.body.classList.toggle('body--menu-open', isOpen);
-          toggleButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-          toggleButton.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
-          nav.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
-          if (overlay) {
-            overlay.classList.toggle('open', isOpen);
-            overlay.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        const setMenuState = (isOpen, restoreFocus = true) => {
+          const isMobile = state.mobileMediaQuery.matches;
+          const shouldOpen = isMobile && isOpen;
+
+          nav.classList.toggle('open', shouldOpen);
+          toggleButton.classList.toggle('is-active', shouldOpen);
+          document.body.classList.toggle('body--menu-open', shouldOpen);
+          toggleButton.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+          toggleButton.setAttribute('aria-label', shouldOpen ? 'Fechar menu' : 'Abrir menu');
+
+          if (isMobile) {
+            nav.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+          } else {
+            nav.removeAttribute('aria-hidden');
           }
 
-          if (isOpen) {
+          if (overlay) {
+            overlay.classList.toggle('open', shouldOpen);
+            overlay.setAttribute('aria-hidden', shouldOpen ? 'false' : 'true');
+          }
+
+          if (shouldOpen) {
             lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
             const focusableItems = utils.getFocusableElements(nav);
             if (focusableItems[0]) focusableItems[0].focus();
-          } else if (lastFocusedElement instanceof HTMLElement) {
+          } else if (restoreFocus && lastFocusedElement instanceof HTMLElement) {
             lastFocusedElement.focus();
+            lastFocusedElement = null;
           }
         };
 
-        nav.setAttribute('aria-hidden', 'true');
+        setMenuState(false, false);
 
         toggleButton.addEventListener(
           'click',
@@ -319,8 +453,8 @@
         window.addEventListener(
           'resize',
           () => {
-            if (!state.mobileMediaQuery.matches) {
-              setMenuState(false);
+            if (!state.mobileMediaQuery.matches || !nav.classList.contains('open')) {
+              setMenuState(false, false);
             }
           },
           { signal: controller.signal }
@@ -391,7 +525,9 @@
     smoothScroll: {
       controller: null,
       init() {
-        const links = utils.qsa('a.nav-link[href^="#"], footer a[href^="#"]');
+        const links = utils.qsa(
+          'a.nav-link[href^="#"], footer a[href^="#"], .logo-container[href^="#"], .hero__scroll-cue[href^="#"]'
+        );
         if (!links.length) return;
 
         const controller = utils.createAbortController();
@@ -485,6 +621,8 @@
     init() {
       state.prefersReducedMotion.addEventListener('change', () => {
         features.scrollReveal.refresh();
+        features.heroMotion.destroy();
+        features.heroMotion.init();
       });
 
       state.mobileMediaQuery.addEventListener('change', () => {
@@ -501,6 +639,7 @@
       features.cookieBanner.init();
       features.scrollReveal.init();
       features.headerScrollState.init();
+      features.heroMotion.init();
       features.mobileMenu.init();
       features.scrollSpy.init();
       features.smoothScroll.init();
